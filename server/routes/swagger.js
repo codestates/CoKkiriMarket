@@ -1,6 +1,6 @@
 const swaggerJSDoc = require('swagger-jsdoc');
 
-var swaggerDefinition = {
+const swaggerDefinition = {
     info : { // 정보 작성
         title : "CoKkiriMarket",
         version : "1.0.0",
@@ -10,7 +10,7 @@ var swaggerDefinition = {
     basePath : "/" // base path
 };
 
-var options = {
+const options = {
     swaggerDefinition: swaggerDefinition,
     apis : [__dirname + '/../routes/*.js']
 };
