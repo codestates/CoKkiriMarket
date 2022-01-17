@@ -12,6 +12,8 @@ const app = express()
 
 let corsOptions = {
     origin: '*',
+    allowedHeaders: ['Content-Type', 'Authorization'],
+    exposedHeaders: ['Content-Type'],
     credentials: true
 }
 
@@ -22,6 +24,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 app.use('/', indexRouter);
+
+app.set('etag', false)
 
 let server;
 

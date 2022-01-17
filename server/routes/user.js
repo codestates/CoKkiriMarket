@@ -51,6 +51,20 @@ const controller = require('../controllers/user')
  *       required: true
  *       type: integer
  *       description: 유저 Id
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:      # Request body contents
+ *             type: object
+ *             properties:
+ *               id:
+ *                 type: integer
+ *               name:
+ *                 type: string
+ *               example:   # Sample object
+ *                 id: 10
+ *                 name: Jessica Smith
  *     responses:
  *       "200":
  *         description: "successful operation"
