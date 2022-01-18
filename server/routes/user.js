@@ -22,9 +22,9 @@ const controller = require('../controllers/user')
  *       "200":
  *         description: "successful operation"
  * 
- * /user/me:
+ * /user/mypage:
  *   get:
- *     description: 게시물 생성
+ *     description: 유저의 개인정보 및 마이페이지 정보 조회를 위한 엔드포인트
  *     tags: [User]
  *     produces:
  *     - "application/json"
@@ -41,7 +41,7 @@ const controller = require('../controllers/user')
  * 
  * /user/login:
  *   post:
- *     description: 게시물 생성
+ *     description: email 로그인을 위한 엔드포인트
  *     tags: [User]
  *     produces:
  *     - "application/json"
@@ -58,20 +58,17 @@ const controller = require('../controllers/user')
  *           schema:      # Request body contents
  *             type: object
  *             properties:
- *               id:
+ *               email:
  *                 type: integer
- *               name:
+ *               password:
  *                 type: string
- *               example:   # Sample object
- *                 id: 10
- *                 name: Jessica Smith
  *     responses:
  *       "200":
  *         description: "successful operation"
  * 
  * /user/logout:
  *   post:
- *     description: 게시물 생성
+ *     description: 로그 아웃
  *     tags: [User]
  *     produces:
  *     - "application/json"
@@ -87,11 +84,11 @@ const controller = require('../controllers/user')
  * 
  * /user/signout:
  *  delete:
- *      description: 로그 아웃
+ *      description: 회원 탈퇴를 요청합니다.
  *      tags: [User]
  *      responses:
  *          "204":
- *              description: "로그 아웃 성공"
+ *              description: "회원 탈퇴에 성공하였습니다."
  *              content:
  *                  applycation/json:
  *                      schema:
@@ -101,7 +98,7 @@ const controller = require('../controllers/user')
  *                                  type: string
  *                                  example: "successful"
  *          "400":
- *              description: "유효하지 않은 요청"
+ *              description: "유효하지 않은 요청입니다."
  *              content:
  *                  applycation/json:
  *                      schema:
@@ -113,21 +110,54 @@ const controller = require('../controllers/user')
  *          "500":
  *              description: "기타 오류"
  *              content:
- *                  applycation/json:
+ *                  application/json:
  *                      schema:
  *                          type: object
  *                          properties:
  *                              message:
  *                                  type: string
  *                                  example: "기타 오류"
- * 
- * 
+ *  
+ * /user/verification/{token}:
+ *    get:
+ *      description: 회원가입 시 이메일 인증을 위한 엔드포인트
+ *      tags: [User]
+ *      produces:
+ *      - "application/json"
+ *      parameters:
+ *      - in: path
+ *        name: token
+ *        required: true
+ *        type: string
+ *        description: 인증 토큰
+ *      responses:
+ *        "200":
+ *          description: "인증 완료"
+ *          content:
+ *            application/json:
+ *              schema:
+ *                type: object
+ *                properties:
+ *                  message:
+ *                    type: string
+ *                    example: "인증 완료"
+ *        "400":
+ *          description: "만료된 인증 요청"
+ *          content:
+ *            application/json:
+ *              schema:
+ *                type: object
+ *                properties:
+ *                  message:
+ *                    type: string
+ *                    example: "만료된 인증 요청"
  * 
  */
 
 router.get('/logout', controller.logout);
 router.post('/login', controller.login);
 router.get('/verification', controller.verification);
+router.get('/email', controller.verification)
 
 
 module.exports = router;
