@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const userRouter = require('./user')
 const postRouter = require('./post')
+const chatRouter = require('./chat')
 const fs = require('fs')
 const path = require('path')
 
@@ -16,7 +17,8 @@ const swaggerPageOptions = {
 
 /* 라우팅 */
 router.use('/user', userRouter);
-router.use('/post', postRouter)
+router.use('/post', postRouter);
+router.use('/chat', chatRouter);
 router.use('/apidocs', swaggerUi.serve, swaggerUi.setup(swaggerRouter, swaggerPageOptions));
 
 router.get('/public/*', async (req, res) => {
