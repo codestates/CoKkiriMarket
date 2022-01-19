@@ -78,6 +78,12 @@ const { authentication } = require('../controllers/authentication')
  *     produces:
  *     - "application/json"
  *     parameters:
+ *     - in: header
+ *       required: true
+ *       name: Authorization
+ *       type: string
+ *       description: AccessToken
+ *       example: bearer 23f43u9if13ekc23fm30jg549quneraf2fmsdf
  *     - in: path
  *       name: user
  *       required: true
@@ -150,11 +156,12 @@ const { authentication } = require('../controllers/authentication')
  *     produces:
  *     - "application/json"
  *     parameters:
- *     - in: path
- *       name: user
+ *     - in: header
  *       required: true
- *       type: integer
- *       description: 유저 Id
+ *       name: Authorization
+ *       type: string
+ *       description: AccessToken
+ *       example: bearer 23f43u9if13ekc23fm30jg549quneraf2fmsdf
  *     responses:
  *       "200":
  *         description: "successful operation"
@@ -163,6 +170,13 @@ const { authentication } = require('../controllers/authentication')
  *  delete:
  *      description: 회원 탈퇴를 요청합니다.
  *      tags: [User]
+ *      parameters:
+ *      - in: header
+ *        required: true
+ *        name: Authorization
+ *        type: string
+ *        description: AccessToken
+ *        example: bearer 23f43u9if13ekc23fm30jg549quneraf2fmsdf
  *      responses:
  *          "204":
  *              description: "회원 탈퇴에 성공하였습니다."
