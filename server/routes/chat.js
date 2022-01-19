@@ -111,6 +111,16 @@ const controller = require('../controllers/chat')
  *                 message:
  *                   type: string
  *                   example: "successful"
+ *       "400":
+ *           description: "중복된 닉네임입니다."
+ *           content:
+ *               application/json:
+ *                   schema:
+ *                       type: object
+ *                       properties:
+ *                           message:
+ *                               type: string
+ *                               example: "중복된 닉네임입니다."
  *       "500":
  *           description: "기타 오류"
  *           content:

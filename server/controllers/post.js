@@ -11,4 +11,9 @@ module.exports = {
     my: (req, res) => {
         res.status(200).send('POST: /my')
     },
+
+    signin: (req, res) => {
+        const body = req.body
+        res.status(200).send('POST: /user/signin, body : ', body)
+    },
 };
