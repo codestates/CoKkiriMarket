@@ -1,11 +1,60 @@
 const express = require('express');
 const router = express.Router();
 const controller = require('../controllers/user')
+const { authentication } = require('../controllers/authentication')
 
 /* GET links listing. */
 
 /**
  * @swagger
+ * 
+ * /user/signup:
+ *   post:
+ *     description: 회원 가입을 요청합니다.
+ *     tags: [User]
+ *     produces:
+ *     - "application/json"
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:      # Request body contents
+ *             type: object
+ *             properties:
+ *               user_id:
+ *                 type: string
+ *                 example: "string, ID"
+ *               email:
+ *                 type: string
+ *                 example: "string, 이메일"
+ *               password:
+ *                 type: string
+ *                 example: "string, 암호화된 비밀번호"
+ *               phone:
+ *                 type: string
+ *                 example: "string, 연락처"
+ *     responses:
+ *       "201":
+ *         description: "계정이 성공적으로 생성되었습니다."
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: "successful"
+ *       "500":
+ *           description: "기타 오류"
+ *           content:
+ *               application/json:
+ *                   schema:
+ *                       type: object
+ *                       properties:
+ *                           message:
+ *                               type: string
+ *                               example: "기타 오류"
+ * 
  * /user/authorize:
  *   post:
  *     description: 게시물 생성
@@ -41,16 +90,10 @@ const controller = require('../controllers/user')
  * 
  * /user/login:
  *   post:
- *     description: email 로그인을 위한 엔드포인트
+ *     description: 이메일 아이디를 이용해 로그인합니다.
  *     tags: [User]
  *     produces:
  *     - "application/json"
- *     parameters:
- *     - in: path
- *       name: user
- *       required: true
- *       type: integer
- *       description: 유저 Id
  *     requestBody:
  *       required: true
  *       content:
@@ -59,12 +102,46 @@ const controller = require('../controllers/user')
  *             type: object
  *             properties:
  *               email:
- *                 type: integer
+ *                 type: string
+ *                 example: "example@example.com"
  *               password:
  *                 type: string
+ *                 example: "pZCI6Miwibmlja25hbWUiOiJkYWh5ZW9uNSIsImVtYWlsIjoiZGFoeWVvbjE3MTJAZGd1LmFjLmtyI"
  *     responses:
  *       "200":
- *         description: "successful operation"
+ *         description: "로그인 성공"
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: "로그인 성공"
+ *                 accessToken:
+ *                   type: string
+ *                   example: "dcnIqKHvvsFNQRSpZvUoRmHlpbIOWvpsEundLeKoezkgwSQWXqYtLCoikaNnojmjAYtJXdslPermxNBdnWiFYkCvqOINgbNNjACdoONsNyTghXZTtRvHPCQjhYZWKavXfVMBArzVfhRsDYynzwezQGVtOufuYSwxFhSKTZsdlEDutoXwmMaGSYJfyGhDYkOUkACinyQiQLZyFfSffKEDoFtbCozJrRmzoXsPbbjetarTzJBiMbDKxGMuDAQUhrkIDqmqNAadrhhCxjASmReOUyZskiuAspiBhnghvcQxfARFlVfaRHRxaPBcuIxxGdMCskkuAhuVOiVgdldSlRKwTaYdrUYKaaKnHylHeeAKJmjmBaAPTMKJICWJKUtKNuvVBUHVbBzyYMrplOGLaLIGoPIuXuCMFXHwGFZFjphIoafDsVrGYdRbgshJgJCiLhFrbUfZVtvASqKTvhONQZjfnoYBAYQgAJNSiIyyTEBhCrCtmRgkEwyXYazQsztOdMcTpZvfVLYUOlxgCSbfIDCFgKDNsoUBUkJDwpMwbOxEGMwPgYdpYAqaTNpdXTQlbYraRQoqHynfMHMYTZYTAWUCEWLyETKnksnsJWxHEyIQWzunLxDaptgTmVpDOamhXDbRsYyOvfsDtAMsoeEIvbFGWrDhIQpJtFzPjJEFzxxVcQIAICCqMaWDFPNwcTgSkeZKocBpKezaZXyjLgPfCywkibvkNtePMFwGzjXjVPnXmoXhEhfwmGaIGDSVBNxaIKhuJUnPqZxXVdkiYnwzvHIqIkmMeshKlhEfoAlCaoZOsffkiqmZUvXBiozRXkjIehErKPVdlqkqLnLDxdNdHyxdWspvFoJfmoaNcSVdNqfpFTVSFCujqqSfjkYZnIuJqBQbDxFLuCskqinefhdEfLaJMnBmlYNpFpQFeIUfHoZbJicMWxBIblSVCrHwbOkLuHWdYopEJsrcoHHjeuAhBmFRauPllwFFsdYwwiFffCkmHjqxsomIehivsFAkHEJiuvwt"
+ * 
+ *       "400":
+ *         description: "로그인 정보의 유효성 문제로 로그인에 실패하였습니다."
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: "로그인 실패"
+ *       "500":
+ *           description: "기타 오류"
+ *           content:
+ *               application/json:
+ *                   schema:
+ *                       type: object
+ *                       properties:
+ *                           message:
+ *                               type: string
+ *                               example: "기타 오류"
  * 
  * /user/logout:
  *   post:
@@ -155,9 +232,10 @@ const controller = require('../controllers/user')
  */
 
 router.get('/logout', controller.logout);
-router.post('/login', controller.login);
+router.post('/login', authentication, controller.login);
 router.get('/verification', controller.verification);
 router.get('/email', controller.verification)
+router.post('/signup', controller.signup)
 
 
 module.exports = router;
