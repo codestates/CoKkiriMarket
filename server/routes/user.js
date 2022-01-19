@@ -246,9 +246,9 @@ const { authentication } = require('../controllers/authentication')
  */
 
 router.get('/logout', controller.logout);
-router.post('/login', authentication, controller.login);
+router.post('/login', controller.login);
 router.get('/verification', controller.verification);
-router.get('/email', controller.verification)
+router.get('/mypage', authentication, controller.verification)
 router.post('/signup', controller.signup)
 
 
