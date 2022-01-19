@@ -1,6 +1,6 @@
 # CoKkiriMarket
 
-![텍스트](https://imagedelivery.net/BOKuAiJyROlMLXwCcBYMqQ/f5ab4698-2d26-40ed-17d8-b2e00f57dc00/public)
+![텍스트](https://imagedelivery.net/BOKuAiJyROlMLXwCcBYMqQ/35023bd9-c72a-4580-4dea-ec91f2974200/public)
 
 ## 프로젝트 소개
 
