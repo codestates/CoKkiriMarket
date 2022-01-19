@@ -19,11 +19,7 @@
 
 ## ✨ Members
 
-|김준영|박다현|박예린|장호진|
+|김준영(팀장)|박다현|박예린|장호진|
 ---|---|---|---
 |Front-end|Back-end|Front-end|Back-end|
 |<a href="https://github.com/candymask0712">KimJunYoung</a>|<a href="https://github.com/dahyeon11">ParkDaHyun</a>|<a href="https://github.com/candymask0712">ParkYeRin</a>|<a href="https://github.com/candymask0712">JangHoJin</a>|
-
-## ✨ Tech Stack
-
-작성 예정
