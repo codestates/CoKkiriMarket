@@ -7,6 +7,9 @@ export const Routers = () => {
     <BrowserRouter>
       <Header />
       <Routes>
+        <Route path="/join" element={<Join />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/mypage" element={<MyPage />} />
       </Routes>
     </BrowserRouter>
   );
