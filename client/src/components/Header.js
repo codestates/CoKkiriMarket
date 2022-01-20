@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
 
 const HeaderWrapper = styled.header`
   width: 100vw;
@@ -31,13 +32,15 @@ const Icon = styled.img`
 `;
 
 function Header() {
+  const navigate = useNavigate();
+
   return (
     <HeaderWrapper>
       <Wrapper>
-        <Icon src='./icons/arrow-small-left.png' />
+        <Icon src='./icons/arrow-small-left.png' onClick={() => navigate(-1)} />
       </Wrapper>
       <LogoWrapper>
-        <Icon src='./icons/elephant.png' />
+        <Icon src='./icons/elephant.png' onClick={() => navigate('/')} />
       </LogoWrapper>
     </HeaderWrapper>
   );
