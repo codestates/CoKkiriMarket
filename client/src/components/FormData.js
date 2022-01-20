@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import styled from 'styled-components';
 
 const FormWrapper = styled.div`
@@ -51,11 +51,24 @@ const Textarea = styled.textarea`
 `;
 
 function FormData() {
+  const fileRef = useRef(null);
+
+  const previewHandler = (e) => {
+    console.log(e.target.files[0]);
+    /* !클라우드 플레어 url 받아오기! */
+    /* !setPreview 후, Preview 띄우기! */
+  };
+
   return (
     <FormWrapper>
       <ImgWrapper>
-        <Preview></Preview>
-        <FileInput type='file' />
+        <Preview onClick={() => fileRef.current.click()}></Preview>
+        <FileInput
+          type='file'
+          ref={fileRef}
+          accept='.jpeg, .jpg, .png'
+          onChange={(e) => previewHandler(e)}
+        />
       </ImgWrapper>
       <Input type='text' placeholder='제목을 입력하세요' />
       <Input type='number' placeholder='가격을 입력하세요' />
