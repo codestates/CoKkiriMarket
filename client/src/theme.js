@@ -1,17 +1,17 @@
-const fontSizes = {
-};
+const fontSizes = {};
 
-const paddings = {
-};
+const paddings = {};
 
-const margins = {
-};
+const margins = {};
 
 const colors = {
-  white: '#FFFFFF',
+  white: '#ffffff',
   blue_dark: '#121D33',
-  blue_normal: '#6793E6',
-  blue_light: '#CCDFFF'
+  blue_base: '#6793E6',
+  blue_light: '#CCDFFF',
+  grey: '#CDD1D6',
+  grey2: '#ccd4e2',
+  grey_light: '#e3e9f4'
 };
 
 const theme = {

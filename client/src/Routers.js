@@ -4,7 +4,6 @@ import Header from './components/Header';
 import MyPage from './pages/MyPage';
 import Login from './pages/Login.js';
 import Join from './pages/Join';
-import Home from './pages/Home';
 import Nav from './components/Nav';
 
 export const Routers = ({
@@ -17,12 +16,17 @@ export const Routers = ({
     <BrowserRouter>
       <Header />
       <Routes>
-        <Route path="/join" element={<Join />} />
-        <Route path="/login" element={<Login 
-          isLogin={isLogin}
-          handleResponseSuccess={handleResponseSuccess}
-        />} />
-        <Route path="/mypage" element={<MyPage />} />
+        <Route path='/join' element={<Join />} />
+        <Route
+          path='/login'
+          element={
+            <Login
+              isLogin={isLogin}
+              handleResponseSuccess={handleResponseSuccess}
+            />
+          }
+        />
+        <Route path='/mypage' element={<MyPage />} />
       </Routes>
       <Nav />
     </BrowserRouter>
