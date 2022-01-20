@@ -7,11 +7,12 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "cross-env NODE_ENV=development nodemon app.js",
     "server-start": "authbind --deep pm2 start app.js",
-    "postinstall": "patch-package" 
+    "postinstall": "patch-package"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
     "dotenv": "^14.1.0",
     "express": "^4.17.2",
