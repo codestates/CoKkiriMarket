@@ -1,11 +1,11 @@
 import React from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import Header from './components/Header';
 import MyPage from './pages/MyPage';
 import Login from './pages/Login.js';
 import Join from './pages/Join';
-import Home from './pages/Home';
 import Nav from './components/Nav';
+import Chat from './pages/Chat';
 
 export const Routers = ({
   isLogin,
@@ -14,7 +14,7 @@ export const Routers = ({
   handleLogout
 }) => {
   return (
-    <BrowserRouter>
+    <>
       <Header />
       <Routes>
         <Route path="/join" element={<Join />} />
@@ -22,9 +22,15 @@ export const Routers = ({
           isLogin={isLogin}
           handleResponseSuccess={handleResponseSuccess}
         />} />
-        <Route path="/mypage" element={<MyPage />} />
+        <Route path="/mypage" element={<MyPage
+          userInfo={userInfo}
+          handleLogout={handleLogout}
+        />} />
+        <Route path="/chat" element={<Chat />} />
       </Routes>
-      <Nav />
-    </BrowserRouter>
+      <Nav
+      isLogin={isLogin}
+      />
+    </>
   );
 };

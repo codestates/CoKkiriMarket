@@ -1,10 +1,11 @@
 import styled from "styled-components"; 
 import { useState } from 'react';
-// import { Link, useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { Modal } from "../components/Modal";
 
 const Join = () => {
+  const navigate = useNavigate();
   const [userinfo, setuserinfo] = useState({
     email: '',
     user_id: '',
@@ -17,7 +18,6 @@ const Join = () => {
   const pw = userinfo.password
   const pwRe = userinfo.passwordretype
 
-  // const history = useHistory();
   const [errorMessage, setErrorMessage] = useState('');
   const [emailErrMsg, setEmailErrMsg] = useState('');
   const [passwordErrMsg, setPasswordErrMsg] = useState('');
@@ -46,7 +46,6 @@ const Join = () => {
       if(!checkEmail(email)) setEmailErrMsg('유효한 이메일 형식이 아닙니다')
       else setEmailErrMsg('')
     }
-
   };
 
   const handleJoin = () => {
@@ -55,20 +54,48 @@ const Join = () => {
     if(pw!=='' && pwRe!=='' && pw!==pwRe)return setPasswordReErrMsg('동일한 비밀번호를 입력하세요')
 
     else{
+      const data = {
+        email: email,
+        user_id: id,
+        password: pw
+      }
+
       const options = {
         method: 'post',
-        url: 'https://api.cokkirimarket.xyz/user/signup',
-        data: userinfo
-    }
-    const newUser = axios(options)
-      .then((res) => {
-        // history.push("/");
-      })
-      .catch((err) => {
-        setErrorMessage('회원가입 중 에러가 발생하였습니다')
-      });
-    }
+        url: 'https://dev.cokkiriserver.xyz/user/signup',
+        data: data
+      }
 
+    axios(options)
+    .then((res) => {
+      console.log(res)
+      console.log(res.status)
+      navigate('/login');
+    })
+    .catch(function (error) {
+      if (error.response) {
+        // 요청이 이루어졌으며 서버가 2xx의 범위를 벗어나는 상태 코드로 응답했습니다.
+        console.log(error.response.data);
+        console.log(error.response.status);
+        console.log(error.response.headers);
+        setErrorMessage('회원가입 중 에러가 발생하였습니다')
+      }
+      else if (error.request) {
+        // 요청이 이루어 졌으나 응답을 받지 못했습니다.
+        // `error.request`는 브라우저의 XMLHttpRequest 인스턴스 또는
+        // Node.js의 http.ClientRequest 인스턴스입니다.
+        setErrorMessage('회원가입 중 에러가 발생하였습니다')
+        console.log(error.request);
+      }
+      else {
+        // 오류를 발생시킨 요청을 설정하는 중에 문제가 발생했습니다.
+        setErrorMessage('회원가입 중 에러가 발생하였습니다')
+        console.log('Error', error.message);
+      }
+      console.log(error.config);
+    });
+    
+    }
   };
 
   return (
@@ -78,6 +105,7 @@ const Join = () => {
         <JoinInputContainer><JoinInput 
           type='email'
           onChange={handleInputValue('email')} 
+          onKeyUp={handleInputValue()} 
           placeholder='이메일'></JoinInput></JoinInputContainer>
         <ErrorMsg>{emailErrMsg}</ErrorMsg>
 
@@ -85,6 +113,7 @@ const Join = () => {
         <JoinInputContainer><JoinInput 
           type='password'
           onChange={handleInputValue('password')} 
+          onKeyUp={handleInputValue()} 
           placeholder='비밀번호 (총 4자 이상 12자 이하, 숫자/영문자 포함)'
         ></JoinInput></JoinInputContainer>
         <ErrorMsg>{passwordErrMsg}</ErrorMsg> 
@@ -93,6 +122,7 @@ const Join = () => {
         <JoinInputContainer><JoinInput 
           type='password'
           onChange={handleInputValue('passwordretype')} 
+          onKeyUp={handleInputValue()} 
           placeholder='비밀번호 확인'></JoinInput></JoinInputContainer>
          <ErrorMsg>{passwordReErrMsg}</ErrorMsg> 
 
@@ -100,6 +130,7 @@ const Join = () => {
          <JoinInputContainer><JoinInput 
           type='text'
           onChange={handleInputValue('user_id')} 
+          onKeyUp={handleInputValue()} 
           placeholder='닉네임' 
         /></JoinInputContainer>  
       </form> 

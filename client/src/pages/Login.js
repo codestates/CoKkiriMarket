@@ -2,36 +2,42 @@ import styled from "styled-components";
 import { Link } from "react-router-dom"; 
 import { useState } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const Login = ( { isLogin, handleResponseSuccess } ) => {
+  const navigate = useNavigate();
   const [loginInfo, setLoginInfo] = useState({
     email: '',
     password: ''
   });
   const [errorMessage, setErrorMessage] = useState('');
   const handleInputValue = (key) => (e) => {
-    console.log(loginInfo)
     setLoginInfo({ ...loginInfo, [key]: e.target.value });
   };
   const handleLogin = () => {
-    console.log(loginInfo)
     if(loginInfo.id===''|| loginInfo.pw===''){
       return  setErrorMessage('아이디와 비밀번호를 입력하세요')
     }
     else{
       const options = {
         method: 'post',
-        url: 'https://api.cokkirimarket.xyz/user/login',
+        url: 'https://dev.cokkiriserver.xyz/user/login',
         data: loginInfo
     }
+    // else{
+    //   const options = {
+    //     method: 'post',
+    //     url: 'https://api.cokkirimarket.xyz/user/login',
+    //     data: loginInfo
+    // }
     const newUser = axios(options)
 
       .then((res) => {
-        console.log("res.data : " + res.data);
-        console.log("res.data.accessToken : " + res.data.accessToken);
-        axios.defaults.headers.common['Authorization'] = 'Bearer ' + res.data;
+        // console.log("res.data : " + res.data);
+        // console.log("res.data.accessToken : " + res.data.accessToken);
+        // axios.defaults.headers.common['Authorization'] = 'Bearer ' + res.data;
         handleResponseSuccess(loginInfo.email)
-        // history.push("/");
+        navigate('/mypage');
       })
       .catch((err) => {
         console.log(err)

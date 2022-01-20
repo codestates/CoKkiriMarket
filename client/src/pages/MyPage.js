@@ -17,6 +17,7 @@ export const MyPageContainer = styled.div`
   bottom: 0;
 `;
 
+
 export const MyPageMenu = styled.div`
   width: 240px;
   height: 50px;
@@ -37,8 +38,15 @@ export const MyPageMenu = styled.div`
 `;
 
 export const MyPageId = styled.div`
+  background-color: grey;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  border-radius: 10px;
+  width: 240px;
+  height: 50px;
   margin: 10px;
-  width: 100px;
   color: black;
 `;
 
@@ -69,8 +77,7 @@ const MyPage = ({ userInfo, handleLogout }) => {
 
   return (
     <MyPageContainer>
-      {userInfo}
-      <MyPageId></MyPageId>
+      <MyPageId>{userInfo}</MyPageId>
       <MyPageMenu>
         <MyMenuIcon src="/icons/mygoods.png" />
         나의 판매내역
