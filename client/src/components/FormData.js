@@ -50,7 +50,7 @@ const Textarea = styled.textarea`
   box-shadow: 1px 1px 10px -5px ${({ theme }) => theme.colors.blue_base};
 `;
 
-function FormData() {
+function FormData({ fillPostForm }) {
   const fileRef = useRef(null);
 
   const previewHandler = (e) => {
@@ -70,9 +70,20 @@ function FormData() {
           onChange={(e) => previewHandler(e)}
         />
       </ImgWrapper>
-      <Input type='text' placeholder='제목을 입력하세요' />
-      <Input type='number' placeholder='가격을 입력하세요' />
-      <Textarea placeholder='내용을 입력하세요'></Textarea>
+      <Input
+        type='text'
+        placeholder='제목을 입력하세요'
+        onChange={(e) => fillPostForm({ title: e.target.value })}
+      />
+      <Input
+        type='number'
+        placeholder='가격을 입력하세요'
+        onChange={(e) => fillPostForm({ price: e.target.value })}
+      />
+      <Textarea
+        placeholder='내용을 입력하세요'
+        onChange={(e) => fillPostForm({ description: e.target.value })}
+      ></Textarea>
     </FormWrapper>
   );
 }
