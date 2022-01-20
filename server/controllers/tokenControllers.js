@@ -19,7 +19,7 @@ module.exports = {
   resendAccessToken: (res, accessToken, data) => {
     res.json({ data: { accessToken, userInfo: data }, message: "ok" });
   },
-  isAuthorized: (req) => {
+  isAuthorized: async (req) => {
     const authorization = req.headers["authorization"];
     if (!authorization) {
       return null;
@@ -31,7 +31,7 @@ module.exports = {
       return null;
     }
   },
-  checkRefeshToken: (refreshToken) => {
+  checkRefeshToken: async (refreshToken) => {
     try {
       return verify(refreshToken, process.env.REFRESH_SECRET);
     } catch (err) {
