@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import validationCheckAPI from '../api';
 import SmallButton from '../components/common/SmallButton';
 import FormData from '../components/FormData';
 
@@ -12,6 +13,12 @@ function Add() {
 
   const submitPostForm = (e) => {
     e.preventDefault();
+    if (!validationCheckAPI.checkPostFormValid(postForm)) {
+      /* !제대로 폼 채우라는 모달창 띄우고 리턴! */
+      console.log('try again');
+      return;
+    }
+    /* !postForm axios로 전송하는 로직! */
     console.log(postForm);
   };
 
