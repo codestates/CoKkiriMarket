@@ -11,7 +11,8 @@ const HeaderWrapper = styled.header`
   position: fixed;
   top: 0;
   background-color: ${({ theme }) => theme.colors.white};
-  border-bottom: 1px solid ${({ theme }) => theme.colors.grey};
+  box-shadow: 1px 1px 3px ${({ theme }) => theme.colors.grey};
+  z-index: 1;
 `;
 
 const Wrapper = styled.div`
