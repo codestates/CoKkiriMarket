@@ -11,6 +11,7 @@ const GlobalStyles = createGlobalStyle`
   main {
     margin-top: 50px;
     margin-bottom: 60px;
+    position: relative;
   }
   
 `;
