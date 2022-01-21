@@ -23,6 +23,7 @@ export const Routers = ({
     <>
       <Header />
       <Routes>
+<<<<<<< HEAD
         <Route path="/" element={<Home />} />
         <Route path="/join" element={<Join />} />
         <Route path="/login" element={<Login 
@@ -41,6 +42,19 @@ export const Routers = ({
         />} />
         <Route path="/chat" element={<Chat />} />
         {/* <Route path="/oauth" element={<Oauth />} /> */}
+=======
+        <Route path='/join' element={<Join />} />
+        <Route
+          path='/login'
+          element={
+            <Login
+              isLogin={isLogin}
+              handleResponseSuccess={handleResponseSuccess}
+            />
+          }
+        />
+        <Route path='/mypage' element={<MyPage />} />
+>>>>>>> eb3176071bc362150c3c2371a8c4e3fe429d91d8
       </Routes>
       <Nav
       isLogin={isLogin}

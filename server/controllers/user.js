@@ -27,8 +27,11 @@ module.exports = {
                 
                 const accessToken = generateAccessToken(user.dataValues)
                 const refreshToken = generateRefreshToken(user.dataValues)
-
-                sendAccessToken(res, accessToken)
+                sendRefreshToken(res, refreshToken)
+                res.json({ 
+                    accessToken: accessToken,
+                    message: "로그인 성공"
+                });
             } else {
                 //올바르지 않은 유저 정보
                 res.status(400).json({ message: '로그인 실패' })
@@ -57,7 +60,7 @@ module.exports = {
             }
 
             const [user, iscreated] = await models.user.findOrCreate({
-                where: { nickname: user_id },
+                where: { email: email },
                 defaults: newUserInfo
             })
             
@@ -71,6 +74,33 @@ module.exports = {
 
         } else {
             res.status(500).json({ message: '기타 오류' })
+        }
+        
+    },
+    
+    mypage: (req, res) => {
+        console.log(req.userInfo)
+        res.status(200).send({ message: 'successful', userInfo: req.userInfo})
+    },
+
+    isduplicated: async (req, res) => {
+        const email = req.query.email //쿼리 파라미터로 email 값을 받아온다.
+        //console.log(email)
+        if(email) {
+            const user = await models.user.findOne({  //해당 email을 검색한다
+                where: {
+                    email: email
+                }
+            })
+
+            if(user) {      // user = 발견 시 true 미발견 시 false
+                res.status(200).send({ message: '중복된 닉네임입니다.' })
+            } else {
+                res.status(200).send({ message: '사용가능한 닉네임입니다.' })
+            }
+
+        } else {
+            res.status(400).send({ message: '잘못된 요청입니다.' })
         }
     },
 };
