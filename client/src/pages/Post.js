@@ -1,7 +1,7 @@
 import React from 'react';
 
 function Post() {
-  return <div></div>;
+  return <main></main>;
 }
 
 export default Post;

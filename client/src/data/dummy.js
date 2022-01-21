@@ -1,4 +1,4 @@
-const postDataList = [
+export const postDataList = [
   {
     id: 1,
     img: `images/1.jpg`,
@@ -54,4 +54,12 @@ const postDataList = [
   }
 ];
 
-export default postDataList;
+export const categoryData = [
+  '디지털기기',
+  '가구/인테리어',
+  '생활가전',
+  '유아동',
+  '의류/잡화',
+  '반려동물',
+  '기타'
+];

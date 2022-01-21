@@ -1,9 +1,11 @@
 import React, { useRef } from 'react';
 import styled from 'styled-components';
+import Dropdown from './common/Dropdown';
 
 const FormWrapper = styled.div`
   width: 100%;
   height: 90vh;
+  margin: 50px 0;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -26,9 +28,9 @@ const Preview = styled.div`
   box-shadow: 1px 1px 10px -5px ${({ theme }) => theme.colors.blue_base};
 `;
 
-const Input = styled.input`
+export const SingleInput = styled.input`
   width: 85%;
-  height: 4rem;
+  height: 3rem;
   padding: 0 5%;
   margin-bottom: 1rem;
   border-radius: 30px;
@@ -36,13 +38,13 @@ const Input = styled.input`
   box-shadow: 1px 1px 10px -5px ${({ theme }) => theme.colors.blue_base};
 `;
 
-const FileInput = styled(Input)`
+const FileInput = styled(SingleInput)`
   display: none;
 `;
 
 const Textarea = styled.textarea`
   width: 85%;
-  height: 20rem;
+  height: 15rem;
   padding: 5%;
   border-radius: 30px;
   border: 1px solid ${({ theme }) => theme.colors.grey};
@@ -70,12 +72,13 @@ function FormData({ fillPostForm }) {
           onChange={(e) => previewHandler(e)}
         />
       </ImgWrapper>
-      <Input
+      <SingleInput
         type='text'
         placeholder='제목을 입력하세요'
         onChange={(e) => fillPostForm({ title: e.target.value })}
       />
-      <Input
+      <Dropdown fillPostForm={fillPostForm}></Dropdown>
+      <SingleInput
         type='number'
         placeholder='가격을 입력하세요'
         onChange={(e) => fillPostForm({ price: e.target.value })}

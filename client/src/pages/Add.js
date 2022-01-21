@@ -6,6 +6,7 @@ import FormData from '../components/FormData';
 function Add() {
   const [postForm, setPostForm] = useState({
     img: '',
+    category: '',
     title: '',
     price: '',
     description: ''
@@ -15,6 +16,7 @@ function Add() {
     e.preventDefault();
     if (!validationCheckAPI.checkPostFormValid(postForm)) {
       /* !제대로 폼 채우라는 모달창 띄우고 리턴! */
+      console.log(postForm);
       console.log('try again');
       return;
     }
