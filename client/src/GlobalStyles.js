@@ -13,7 +13,6 @@ const GlobalStyles = createGlobalStyle`
     margin-bottom: 60px;
     position: relative;
   }
-  
 `;
 
 export default GlobalStyles;

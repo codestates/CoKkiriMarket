@@ -2,9 +2,9 @@
 
 const Chat = () => {
   return (
-    <div>
-      채팅페이지
-    </div>
+    <main>
+      채팅페이지 입니다
+    </main>
   );
 };
 

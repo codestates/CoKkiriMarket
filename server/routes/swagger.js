@@ -4,7 +4,7 @@ const swaggerDefinition = {
     openapi: "3.0.0",
     info : { // 정보 작성
         title : "CoKkiriMarket",
-        version : "1.0.1",
+        version : "1.0.2",
         description : "CoKkiriMarket API DOCs",
         contact: {
             name: 'cokkiri',
@@ -19,15 +19,19 @@ const swaggerDefinition = {
         {
             url: "https://dev1.cokkirimarket.xyz",
             description: "development server(dahyeon)"
+        },
+        {
+            url: "https://dev2.cokkirimarket.xyz",
+            description: "development server(hojin)"
         }
     ],
-    schemas: ["https"],
-    basePath : "/" // base path
+    schemas: [],
+    basePath : '/', // base path
 };
 
 const options = {
     swaggerDefinition: swaggerDefinition,
-    apis : [__dirname + '/../routes/*.js'],
+    apis : [`${__dirname}/../routes/*.js`, __dirname + `${__dirname}/predefinedspec/*.yaml`],
 };
 
 const swaggerSpec = swaggerJSDoc(options);

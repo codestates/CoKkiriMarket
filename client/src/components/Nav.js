@@ -1,10 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
-import NavList from './NavList';
-import NavSearch from './NavSearch';
-import NavLogin from './NavLogin';
-import NavMyPage from './NavMyPage';
-import NavChat from './NavChat';
+import NavList from './Nav/NavList';
+import NavSearch from './Nav/NavSearch';
+import NavLogin from './Nav/NavLogin';
+import NavMyPage from './Nav/NavMyPage';
+import NavChat from './Nav/NavChat';
 import { Link } from 'react-router-dom';
 
 export const NavContainer = styled.div`
@@ -20,6 +20,9 @@ export const NavContainer = styled.div`
   height: 60px;
   border-radius: 10px;
   border: 1px solid black;
+  @media only screen and (min-width: 768px) {
+    display: none;
+  }
 `;
 
 export const NavTitle = styled.div`

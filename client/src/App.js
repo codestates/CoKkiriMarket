@@ -1,5 +1,7 @@
 import React from 'react';
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+
 import styled from 'styled-components';
 
 import GlobalStyles from './GlobalStyles';
@@ -7,13 +9,13 @@ import { ThemeProvider } from 'styled-components';
 import theme from './theme';
 import { Routers } from './Routers';
 import axios from 'axios';
-import Nav from './components/Nav';
-import Footer from './components/Footer';
 
 function App() {
   const [isLogin, setIsLogin] = useState(false);
   const [userInfo, setUserInfo] = useState('');
-  // const history = useHistory();
+  const [accessToken, setAccessToken] = useState('');
+
+  const navigate = useNavigate();
   const isAuthenticated = () => {
     setIsLogin(true);
   };
@@ -22,17 +24,21 @@ function App() {
     isAuthenticated();
   };
   const handleLogout = () => {
-    const options = {
-      method: 'post',
-      url: 'https://api.cokkirimarket.xyz/user/logout',
-      user: userInfo
-    };
-    const newUser = axios(options)
+    setUserInfo(null);
+    setIsLogin(false);
+    navigate('/login');
+
+    axios
+      .get('https://api.cokkirimarket.xyz/user/logout', {
+        headers: {
+          Authorization: 'Bearer ' + accessToken
+        }
+      })
       .then((res) => {
         setUserInfo(null);
         setIsLogin(false);
-        console.log('logout 성공');
-        // history.push("/");
+        setAccessToken('');
+        navigate('/login');
       })
       .catch((err) => {
         console.log('logout 실패');
@@ -49,9 +55,13 @@ function App() {
         <GlobalStyles />
         <Routers
           isLogin={isLogin}
+          setIsLogin={setIsLogin}
           handleResponseSuccess={handleResponseSuccess}
           userInfo={userInfo}
+          setUserInfo={setUserInfo}
           handleLogout={handleLogout}
+          accessToken={accessToken}
+          setAccessToken={setAccessToken}
         ></Routers>
       </ThemeProvider>
     </>
