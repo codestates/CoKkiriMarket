@@ -11,7 +11,8 @@ const colors = {
   blue_light: '#CCDFFF',
   grey: '#CDD1D6',
   grey2: '#ccd4e2',
-  grey_light: '#e3e9f4'
+  grey_light: '#e3e9f4',
+  grey_dark: '#807C9B'
 };
 
 const theme = {

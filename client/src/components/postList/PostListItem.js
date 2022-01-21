@@ -9,7 +9,7 @@ const StLink = styled(Link)`
 
 const PostItemWrapper = styled.li`
   width: 100%;
-  height: 15vh;
+  height: 8rem;
   padding: 3vh;
   display: flex;
   align-items: center;
@@ -54,7 +54,7 @@ function PostListItem({ info }) {
   return (
     <StLink to={`/list/${info.id}`}>
       <PostItemWrapper>
-        <PostImg src={info.img} />
+        <PostImg src={info.image_src} />
         <PostInfo>
           <PostTitle>{info.title}</PostTitle>
           <PostPrice>{info.price + '원'}</PostPrice>

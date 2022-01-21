@@ -1,12 +1,13 @@
 import React from 'react';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-
 import GlobalStyles from './GlobalStyles';
 import { ThemeProvider } from 'styled-components';
 import theme from './theme';
 import { Routers } from './Routers';
 import axios from 'axios';
+import Header from './components/Header';
+import Nav from './components/Nav';
 
 function App() {
   const [isLogin, setIsLogin] = useState(false);
@@ -51,6 +52,7 @@ function App() {
     <>
       <ThemeProvider theme={theme}>
         <GlobalStyles />
+        <Header />
         <Routers
           isLogin={isLogin}
           setIsLogin={setIsLogin}
@@ -61,6 +63,7 @@ function App() {
           accessToken={accessToken}
           setAccessToken={setAccessToken}
         ></Routers>
+        <Nav isLogin={isLogin} />
       </ThemeProvider>
     </>
   );

@@ -11,7 +11,9 @@ function Searchbar({ fillPostForm, submitPostForm }) {
         type='text'
         onChange={(e) => fillPostForm({ word: e.target.value })}
       />
-      <SmallButton onClickHandler={submitPostForm}>검 색</SmallButton>
+      <SmallButton right='0px' onClickHandler={submitPostForm}>
+        검 색
+      </SmallButton>
     </>
   );
 }

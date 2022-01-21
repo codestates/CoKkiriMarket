@@ -81,6 +81,7 @@ function FormData({ fillPostForm }) {
       <DropdownCategory
         list={categoryList.slice(1)}
         fillPostForm={fillPostForm}
+        width='85%'
       ></DropdownCategory>
       <SingleInput
         type='number'

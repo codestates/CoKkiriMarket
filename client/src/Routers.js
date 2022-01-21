@@ -1,10 +1,8 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
-import Header from './components/Header';
 import MyPage from './pages/MyPage';
 import Login from './pages/Login.js';
 import Join from './pages/Join';
-import Nav from './components/Nav';
 import List from './pages/List';
 import Post from './pages/Post';
 import Add from './pages/Add';
@@ -22,7 +20,6 @@ export const Routers = ({
 }) => {
   return (
     <>
-      <Header />
       <Routes>
         <Route path='/' element={<List />}></Route>
         <Route path='/list/:id' element={<Post />}></Route>
@@ -55,7 +52,6 @@ export const Routers = ({
         />
         <Route path='/chat' element={<Chat />} />
       </Routes>
-      <Nav isLogin={isLogin} />
     </>
   );
 };

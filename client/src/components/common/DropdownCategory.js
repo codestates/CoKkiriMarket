@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 
 const Wrapper = styled.div`
-  width: 85%;
+  width: ${({ width }) => (width && `${width}`) || 'auto'};
   height: 3rem;
   padding: 0 5%;
   margin-bottom: 1rem;
@@ -37,7 +37,7 @@ const Li = styled.li`
   }
 `;
 
-function DropdownCategory({ list, fillPostForm }) {
+function DropdownCategory({ list, fillPostForm, width }) {
   const dropDownRef = useRef(null);
   const [category, setCategory] = useState('');
   const [isOpen, setIsOpen] = useState(false);
@@ -73,7 +73,7 @@ function DropdownCategory({ list, fillPostForm }) {
   };
 
   return (
-    <Wrapper ref={dropDownRef} onClick={() => setIsOpen(!isOpen)}>
+    <Wrapper ref={dropDownRef} onClick={() => setIsOpen(!isOpen)} width={width}>
       <span>{category ? category : '카테고리 선택'}</span>
       <span> ▼ </span>
       <Ul>{isOpen && showCategoryList()}</Ul>

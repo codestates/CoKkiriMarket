@@ -14,8 +14,8 @@ const PostListWrapper = styled.ul`
 function PostList({ posts }) {
   return (
     <PostListWrapper>
-      {posts.map((good) => {
-        return <PostListItem key={good.id} info={good} />;
+      {posts.map((post) => {
+        return <PostListItem key={post.id} info={post} />;
       })}
     </PostListWrapper>
   );
