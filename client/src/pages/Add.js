@@ -6,7 +6,7 @@ import FormData from '../components/FormData';
 function Add() {
   const [postForm, setPostForm] = useState({
     img: '',
-    category: '',
+    category: 0,
     title: '',
     price: '',
     description: ''

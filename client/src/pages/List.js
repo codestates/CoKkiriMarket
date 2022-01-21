@@ -1,15 +1,32 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 import { Link } from 'react-router-dom';
 import CircleButton from '../components/common/CircleButton';
 import PostList from '../components/postList/PostList';
-import { postDataList } from '../data/dummy';
 
 function List() {
-  /* axios로 데이터 GET 요청 */
+  const [postList, setPostList] = useState([]);
+
+  useEffect(() => {
+    getPostList();
+  }, []);
+
+  const getPostList = () => {
+    const options = {
+      method: 'get',
+      url: `https://dev.cokkiriserver.xyz/post`
+    };
+
+    axios(options)
+      .then((res) => {
+        setPostList(res.data.data);
+      })
+      .catch();
+  };
 
   return (
     <main>
-      <PostList posts={postDataList}></PostList>
+      <PostList posts={postList}></PostList>
       <Link to='/add'>
         <CircleButton>+</CircleButton>
       </Link>

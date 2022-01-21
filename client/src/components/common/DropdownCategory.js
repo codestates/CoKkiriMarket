@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
-import { categoryData } from '../../data/dummy';
 
 const Wrapper = styled.div`
   width: 85%;
@@ -38,7 +37,7 @@ const Li = styled.li`
   }
 `;
 
-function Dropdown({ fillPostForm }) {
+function DropdownCategory({ list, fillPostForm }) {
   const dropDownRef = useRef(null);
   const [category, setCategory] = useState('');
   const [isOpen, setIsOpen] = useState(false);
@@ -57,28 +56,29 @@ function Dropdown({ fillPostForm }) {
     }
   };
 
-  const onCategoryClickHandler = (item) => {
-    setCategory(item);
-    fillPostForm({ category: item });
+  const showCategoryList = () => {
+    return list.map((arr) => {
+      const [id, name] = arr;
+      return (
+        <Li key={id} onClick={() => onCategoryClickHandler(id, name)}>
+          {name}
+        </Li>
+      );
+    });
+  };
+
+  const onCategoryClickHandler = (id, name) => {
+    setCategory(name);
+    fillPostForm && fillPostForm({ category: id });
   };
 
   return (
     <Wrapper ref={dropDownRef} onClick={() => setIsOpen(!isOpen)}>
-      <span>{category ? category : '카테고리를 선택하세요'}</span>
+      <span>{category ? category : '카테고리 선택'}</span>
       <span> ▼ </span>
-      <Ul>
-        {isOpen &&
-          categoryData.map((item, idx) => {
-            /* !key 임시로 idx 사용. 수정할 것! */
-            return (
-              <Li key={idx} onClick={() => onCategoryClickHandler(item)}>
-                {item}
-              </Li>
-            );
-          })}
-      </Ul>
+      <Ul>{isOpen && showCategoryList()}</Ul>
     </Wrapper>
   );
 }
 
-export default Dropdown;
+export default DropdownCategory;

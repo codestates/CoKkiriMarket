@@ -4,6 +4,13 @@ const validationCheckAPI = {
       return false;
     }
     return true;
+  },
+
+  checkSearchFormValid: (data) => {
+    if (!data.word) {
+      return false;
+    }
+    return true;
   }
 };
 

@@ -1,6 +1,7 @@
 import React, { useRef } from 'react';
 import styled from 'styled-components';
-import Dropdown from './common/Dropdown';
+import { categoryList } from '../data/dummy';
+import DropdownCategory from './common/DropdownCategory';
 
 const FormWrapper = styled.div`
   width: 100%;
@@ -77,7 +78,10 @@ function FormData({ fillPostForm }) {
         placeholder='제목을 입력하세요'
         onChange={(e) => fillPostForm({ title: e.target.value })}
       />
-      <Dropdown fillPostForm={fillPostForm}></Dropdown>
+      <DropdownCategory
+        list={categoryList.slice(1)}
+        fillPostForm={fillPostForm}
+      ></DropdownCategory>
       <SingleInput
         type='number'
         placeholder='가격을 입력하세요'

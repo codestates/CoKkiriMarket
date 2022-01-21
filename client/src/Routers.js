@@ -9,6 +9,7 @@ import List from './pages/List';
 import Post from './pages/Post';
 import Add from './pages/Add';
 import Chat from './pages/Chat';
+import Search from './pages/Search';
 
 export const Routers = ({
   isLogin,
@@ -26,6 +27,7 @@ export const Routers = ({
         <Route path='/' element={<List />}></Route>
         <Route path='/list/:id' element={<Post />}></Route>
         <Route path='/add' element={<Add />}></Route>
+        <Route path='/search' element={<Search />}></Route>
         <Route path='/join' element={<Join />} />
         <Route
           path='/login'
