@@ -1,5 +1,7 @@
 import styled from "styled-components";
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
 
 export const MyPageContainer = styled.div`
   display: flex;
@@ -7,23 +9,27 @@ export const MyPageContainer = styled.div`
   justify-content: center;
   align-items: center;
   text-align: center;
-  width: 360px;
+  width: 100%;
   height: 100%;
-  border-radius: 30px;
-  background-color: #f9f9f9;
-  box-shadow: 0px 0px 20px #d5d5d5;
-  padding: 2px; 
   position: fixed;
   bottom: 0;
 `;
 
+export const MyPageTitle = styled.div`
+  margin-bottom: 20px;
+  color : #636363;
+  font-family: Nanum Barun Gothic;
+  font-size : 40px;
+  font-weight: bold;
+`;
 
 export const MyPageMenu = styled.div`
   width: 240px;
   height: 50px;
   border-radius: 10px;
-  box-shadow: 0px 0px 10px #e8e7e7;
-  background-color: #f9f9f9;
+  border: 3px solid #eeeeee;
+  /* box-shadow: 0px 0px 10px #e8e7e7; */
+  background-color: white;
   padding: 2px; 
   margin: 15px;
   display: flex;
@@ -38,12 +44,13 @@ export const MyPageMenu = styled.div`
 `;
 
 export const MyPageId = styled.div`
-  background-color: grey;
+  /* background-color: grey; */
   display: flex;
   justify-content: center;
   align-items: center;
   text-align: center;
   border-radius: 10px;
+  border: 1px solid #e8e7e7;
   width: 240px;
   height: 50px;
   margin: 10px;
@@ -55,29 +62,40 @@ export const MyMenuIcon = styled.img`
   height: 28px;
 `;
 
-const MyPage = ({ userInfo, handleLogout }) => {
-
+const MyPage = ({ isLogin, setIsLogin, setUserInfo, userInfo, handleLogout, accessToken, setAccessToken }) => {
+  const navigate = useNavigate();
+  
+  useEffect(() => {
+    if(isLogin===false) navigate('/login')
+  }, [isLogin, navigate])
+  
   const handleSignout = () => {
 
-    const options = {
-      method: 'post',
-      url: 'https://api.cokkirimarket.xyz/user/signout',
-      user: userInfo
-    }
-
-    const newUser = axios(options)
+    axios.delete("https://api.cokkirimarket.xyz/user/delete", {
+      headers: {
+        "Authorization" : "Bearer "+ accessToken
+      }
+    })
       .then((res) => {
+        setUserInfo(null);
+        setIsLogin(false);
+        setAccessToken('')
+        navigate('/login')
         console.log('signout 성공')
-        // history.push("/");
       })
       .catch((err) => {
         console.log('signout 실패')
     });
+
+
   }
 
   return (
+    <main>
     <MyPageContainer>
-      <MyPageId>{userInfo}</MyPageId>
+    {accessToken}      
+      <MyPageTitle>My Page</MyPageTitle>
+      <MyPageId>{userInfo} 님 환영합니다</MyPageId>
       <MyPageMenu>
         <MyMenuIcon src="/icons/mygoods.png" />
         나의 판매내역
@@ -98,10 +116,8 @@ const MyPage = ({ userInfo, handleLogout }) => {
         <MyMenuIcon src="/icons/cancel.png" />
         회원탈퇴 하기
       </MyPageMenu>
-
-      {/* <Profile />
-      <MyMenu /> */}
     </MyPageContainer>
+    </main>
   );
 };
 

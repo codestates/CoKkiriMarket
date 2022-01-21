@@ -10,11 +10,11 @@ import theme from './theme';
 import { Routers } from './Routers';
 import axios from 'axios';
 
-
-
 function App() {
   const [isLogin, setIsLogin] = useState(false);
   const [userInfo, setUserInfo] = useState('');
+  const [accessToken, setAccessToken] = useState('');
+
   const navigate = useNavigate();
   const isAuthenticated = () => {
     setIsLogin(true)
@@ -26,23 +26,23 @@ function App() {
   const handleLogout = () => {
     setUserInfo(null);
     setIsLogin(false);
-    console.log('핸들로그아웃 작동')
     navigate('/login')
-    const options = {
-      method: 'post',
-      url: 'https://dev.cokkiriserver.xyz/user/logout',
-      user: userInfo
-    }
-    axios(options)
+
+    axios.get("https://api.cokkirimarket.xyz/user/logout", {
+      headers: {
+        "Authorization" : "Bearer "+ accessToken
+      }
+    })
       .then((res) => {
         setUserInfo(null);
         setIsLogin(false);
-        console.log('logout 성공')
-        navigate('/')
+        setAccessToken('')
+        navigate('/login')
       })
       .catch((err) => {
         console.log('logout 실패')
     });
+
 
   };
 
@@ -52,32 +52,23 @@ function App() {
 
   return (
     <>
-    <AppContainer>
+
       <ThemeProvider theme={theme}>
         <GlobalStyles />
           <Routers
-            isLogin={isLogin}        
+            isLogin={isLogin}      
+            setIsLogin={setIsLogin}  
             handleResponseSuccess={handleResponseSuccess}
             userInfo={userInfo} 
+            setUserInfo={setUserInfo}
             handleLogout={handleLogout}
+            accessToken={accessToken}
+            setAccessToken={setAccessToken}
           >
           </Routers>
         </ThemeProvider>
-      </AppContainer>
     </>
   );
 }
 
 export default App;
-
-export const AppContainer = styled.div`
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  display: flex;
-  justify-content: space-evenly;
-  align-items: center;
-  text-align: center;
-  text-decoration-line: none;
-  background-color: #f9f9f9;
-`;

@@ -21,6 +21,9 @@ export const NavContainer = styled.div`
   height: 60px;
   border-radius:10px;
   border: 1px solid black;
+  @media only screen and (min-width: 768px) {
+    display: none;
+  }
 `;
 
 export const NavTitle = styled.div`
