@@ -57,11 +57,11 @@ function DropdownCategory({ list, fillPostForm, width }) {
   };
 
   const showCategoryList = () => {
-    return list.map((arr) => {
-      const [id, name] = arr;
+    return list.map((obj) => {
+      const { id, category } = obj;
       return (
-        <Li key={id} onClick={() => onCategoryClickHandler(id, name)}>
-          {name}
+        <Li key={id} onClick={() => onCategoryClickHandler(id, category)}>
+          {category}
         </Li>
       );
     });
@@ -69,7 +69,7 @@ function DropdownCategory({ list, fillPostForm, width }) {
 
   const onCategoryClickHandler = (id, name) => {
     setCategory(name);
-    fillPostForm && fillPostForm({ categories: id });
+    fillPostForm && fillPostForm({ category: id });
   };
 
   return (

@@ -37,7 +37,7 @@ export const Routers = ({
         ></Route>
         <Route
           path='/add'
-          element={<Add sLogin={isLogin} accessToken={accessToken} />}
+          element={<Add isLogin={isLogin} accessToken={accessToken} />}
         ></Route>
         <Route path='/search' element={<Search />}></Route>
         <Route path='/join' element={<Join />} />
@@ -66,20 +66,26 @@ export const Routers = ({
           }
         />
         <Route path='/chat' element={<Chat />} />
-        <Route path='/myposts' element={<MyPosts
-          accessToken={accessToken}
-        />} />
-        <Route path='/myedit' element={<MyEdit
-          isLogin={isLogin}
-          accessToken={accessToken}
-        />} />
-        <Route path='/oauth' element={<Oauth
-          isLogin={isLogin}
-          userInfo={userInfo}
-          handleLogout={handleLogout}
-          accessToken={accessToken}
-          setAccessToken={setAccessToken}
-        />} />
+        <Route
+          path='/myposts'
+          element={<MyPosts accessToken={accessToken} />}
+        />
+        <Route
+          path='/myedit'
+          element={<MyEdit isLogin={isLogin} accessToken={accessToken} />}
+        />
+        <Route
+          path='/oauth'
+          element={
+            <Oauth
+              isLogin={isLogin}
+              userInfo={userInfo}
+              handleLogout={handleLogout}
+              accessToken={accessToken}
+              setAccessToken={setAccessToken}
+            />
+          }
+        />
       </Routes>
     </>
   );

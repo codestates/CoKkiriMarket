@@ -1,16 +1,22 @@
-import React, { useState } from 'react';
+import axios from 'axios';
+import React, { useState, useEffect } from 'react';
 import validationCheckAPI from '../api';
 import SmallButton from '../components/common/SmallButton';
 import PostFormData from '../components/PostFormData';
 
-function Add() {
+function Add({ accessToken }) {
+  const [categoryList, setCategoryList] = useState([]);
   const [postForm, setPostForm] = useState({
     title: '',
     contents: '',
     price: '',
-    categories: 0,
+    categories: '',
     image_src: ''
   });
+
+  useEffect(() => {
+    getCategoryList();
+  }, []);
 
   const submitPostForm = (e) => {
     e.preventDefault();
@@ -20,8 +26,47 @@ function Add() {
       console.log('try again');
       return;
     }
-    /* !postForm axios로 전송하는 로직! */
-    console.log(postForm);
+
+    postPostDataForm(postForm);
+  };
+
+  const postPostDataForm = (postForm) => {
+    const options = {
+      method: 'post',
+      url: 'https://dev.cokkiriserver.xyz/post',
+      withCredentials: true,
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + accessToken
+      },
+      data: postForm
+    };
+
+    axios(options)
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch();
+  };
+
+  const getCategoryList = () => {
+    console.log('hi');
+    const options = {
+      method: 'get',
+      url: `https://dev.cokkiriserver.xyz/search`,
+      data: {
+        payload: {
+          query: 'categoryList'
+        }
+      }
+    };
+
+    axios(options)
+      .then((res) => {
+        console.log(res.data.data);
+        setCategoryList(res.data.data);
+      })
+      .catch(console.log);
   };
 
   const fillPostForm = (data) => {
@@ -34,7 +79,10 @@ function Add() {
         <SmallButton right='0' onClickHandler={submitPostForm}>
           등 록
         </SmallButton>
-        <PostFormData fillPostForm={fillPostForm}></PostFormData>
+        <PostFormData
+          fillPostForm={fillPostForm}
+          categoryList={categoryList}
+        ></PostFormData>
       </form>
     </main>
   );

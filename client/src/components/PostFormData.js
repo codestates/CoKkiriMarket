@@ -1,7 +1,6 @@
 import React, { useRef, useState } from 'react';
 import styled, { css } from 'styled-components';
 import axios from 'axios';
-import { categoryList } from '../data/dummy';
 import DropdownCategory from './common/DropdownCategory';
 
 const FormWrapper = styled.div`
@@ -65,7 +64,7 @@ const Textarea = styled.textarea`
   box-shadow: 1px 1px 10px -5px ${({ theme }) => theme.colors.blue_base};
 `;
 
-function PostFormData({ fillPostForm }) {
+function PostFormData({ fillPostForm, categoryList }) {
   const fileRef = useRef(null);
   const [preview, setPreview] = useState('');
 
@@ -132,7 +131,7 @@ function PostFormData({ fillPostForm }) {
         onChange={(e) => fillPostForm({ title: e.target.value })}
       />
       <DropdownCategory
-        list={categoryList.slice(1)}
+        list={categoryList}
         fillPostForm={fillPostForm}
         width='85%'
       ></DropdownCategory>

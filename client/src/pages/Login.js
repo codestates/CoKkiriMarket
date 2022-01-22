@@ -9,7 +9,9 @@ const Login = ({
   setIsLogin,
   handleResponseSuccess,
   accessToken,
-  setAccessToken
+  setAccessToken,
+  userInfo,
+  setUserInfo
 }) => {
   useEffect(() => {
     let url = new URL(window.location.href);
@@ -21,7 +23,7 @@ const Login = ({
       handleGoogleLogin(authorizationCode);
       handleKakaoLogin(authorizationCode);
     }
-  });
+  }, []);
 
   const navigate = useNavigate();
   const [loginInfo, setLoginInfo] = useState({
@@ -80,6 +82,7 @@ const Login = ({
       window.location.assign(KAKAO_LOGIN_URL);
     }
   };
+
   const handleGithubLogin = async (authorizationCode) => {
     const options = {
       method: 'POST',
@@ -93,10 +96,15 @@ const Login = ({
 
     await axios(options)
       .then((response) => {
+        console.log(response);
         setIsLogin(true);
-        setAccessToken(response.data.accessToken);
+        setAccessToken(response.data.data.accessToken);
+        setUserInfo(response.data.data.email);
+        console.log(userInfo);
+        console.log(accessToken);
+        navigate('/mypage');
       })
-      .catch((err) => null);
+      .catch(console.log);
   };
 
   const handleGoogleLogin = async (authorizationCode) => {
@@ -114,7 +122,11 @@ const Login = ({
       .then((response) => {
         console.log(response);
         setIsLogin(true);
-        setAccessToken(response.data.accessToken);
+        setAccessToken(response.data.data.accessToken);
+        setUserInfo(response.data.data.email);
+        console.log(userInfo);
+        console.log(accessToken);
+        navigate('/mypage');
       })
       .catch((err) => null);
   };
@@ -132,8 +144,13 @@ const Login = ({
 
     await axios(options)
       .then((response) => {
+        console.log(response);
         setIsLogin(true);
-        setAccessToken(response.data.accessToken);
+        setAccessToken(response.data.data.accessToken);
+        setUserInfo(response.data.data.email);
+        console.log(userInfo);
+        console.log(accessToken);
+        navigate('/mypage');
       })
       .catch((err) => null);
   };
@@ -165,13 +182,16 @@ const Login = ({
         <Link to='/join' style={{ textDecoration: 'none' }}>
           <JoinBtnMail>메일로 시작하기 </JoinBtnMail>
         </Link>
+
         <JoinBtnGithub onClick={socialLoginHandler('github')}>
           깃허브로 시작하기
         </JoinBtnGithub>
+
         <JoinBtnGoogle onClick={socialLoginHandler('google')}>
           {' '}
           구글로 시작하기
         </JoinBtnGoogle>
+
         <JoinBtnKaKao onClick={socialLoginHandler('kakao')}>
           {' '}
           카카오로 시작하기
