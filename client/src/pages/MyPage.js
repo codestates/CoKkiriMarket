@@ -106,16 +106,25 @@ const MyPage = ({ isLogin, setIsLogin, setUserInfo, userInfo, handleLogout, acce
       </Link>
 
 
+
+      <Link to='/myedit' style={{ textDecoration: 'none' }}>
       <MyPageMenu>
         <MyMenuIcon src="/icons/correct.png" />
         나의 정보수정
       </MyPageMenu>
+      </Link>
+
+
+
       <MyPageMenu
         onClick={handleLogout}
       >
       <MyMenuIcon src="/icons/logout.png" />
         로그아웃 하기
       </MyPageMenu>
+
+
+
       <MyPageMenu
        onClick={handleSignout}
       >

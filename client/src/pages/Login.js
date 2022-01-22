@@ -59,7 +59,7 @@ const Login = ( { isLogin, setIsLogin, handleResponseSuccess, accessToken, setAc
 
     
     const socialLoginHandler = (key) => (e) => {
-      const redirectUri = 'https://localhost:3000/mypage'
+      const redirectUri = 'https://localhost:3000/'
       if (key === "github") {
         const githubclientId =
         '84a0db73c9e6deeb8373';

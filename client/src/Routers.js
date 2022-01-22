@@ -9,6 +9,7 @@ import Add from './pages/Add';
 import Chat from './pages/Chat';
 import Search from './pages/Search';
 import MyPosts from './pages/MyPosts';
+import MyEdit from './pages/MyEdit';
 
 export const Routers = ({
   isLogin,
@@ -65,6 +66,9 @@ export const Routers = ({
         />
         <Route path='/chat' element={<Chat />} />
         <Route path='/myposts' element={<MyPosts
+          accessToken={accessToken}
+        />} />
+        <Route path='/myedit' element={<MyEdit
           accessToken={accessToken}
         />} />
       </Routes>
