@@ -17,7 +17,7 @@ import {
 } from "./Join";
 
 
-const MyEdit = (  ) => {
+const MyEdit = ({ isLogin, accessToken, }) => {
 
   const navigate = useNavigate();
   const [userinfo, setuserinfo] = useState({

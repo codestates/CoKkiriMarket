@@ -4,13 +4,14 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
-const Login = ( { isLogin, setIsLogin, handleResponseSuccess, accessToken, setAccessToken } ) => {
+const Login = ({ isLogin, setIsLogin, handleResponseSuccess, accessToken, setAccessToken }) => {
 
   useEffect(() => {
     let url = new URL(window.location.href);
     let authorizationCode = url.searchParams.get("code");
-    console.log(authorizationCode)
+    console.log('authorizationCode',authorizationCode)
     if (authorizationCode) {
+      console.log('코드있음')
       handleGithubLogin(authorizationCode);
       handleGoogleLogin(authorizationCode);
       handleKakaoLogin(authorizationCode);
@@ -54,10 +55,6 @@ const Login = ( { isLogin, setIsLogin, handleResponseSuccess, accessToken, setAc
     }
   };
 
-
-  
-
-    
     const socialLoginHandler = (key) => (e) => {
       const redirectUri = 'https://localhost:3000/'
       if (key === "github") {
@@ -102,7 +99,7 @@ const Login = ( { isLogin, setIsLogin, handleResponseSuccess, accessToken, setAc
           })
           .catch((err) => null);
       };
-    
+
       const handleGoogleLogin = async (authorizationCode) => {
         const options = {
           method: "POST",
