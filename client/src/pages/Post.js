@@ -4,6 +4,7 @@ import { useLocation } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 import SmallButton from '../components/common/SmallButton';
 import PostButtonWrapper from '../components/PostButtonWrapper';
+import { Modal } from '../components/Modal';
 
 function Post({ isLogin, accessToken, userInfo }) {
   const { pathname } = useLocation();
@@ -64,6 +65,7 @@ function Post({ isLogin, accessToken, userInfo }) {
 
   return (
     <Main height='100vh'>
+      <Modal></Modal>
       <Section height='20rem'>
         <Img height='100%' src={result.image_src} />
       </Section>
