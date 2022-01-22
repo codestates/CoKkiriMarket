@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
 import validationCheckAPI from '../api';
 import SmallButton from '../components/common/SmallButton';
-import FormData from '../components/FormData';
+import PostFormData from '../components/PostFormData';
 
 function Add() {
   const [postForm, setPostForm] = useState({
-    img: '',
-    category: 0,
     title: '',
+    contents: '',
     price: '',
-    description: ''
+    categories: 0,
+    image_src: ''
   });
 
   const submitPostForm = (e) => {
@@ -34,7 +34,7 @@ function Add() {
         <SmallButton right='0' onClickHandler={submitPostForm}>
           등 록
         </SmallButton>
-        <FormData fillPostForm={fillPostForm}></FormData>
+        <PostFormData fillPostForm={fillPostForm}></PostFormData>
       </form>
     </main>
   );

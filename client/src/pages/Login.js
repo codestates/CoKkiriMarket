@@ -14,7 +14,9 @@ const Login = ({
   useEffect(() => {
     let url = new URL(window.location.href);
     let authorizationCode = url.searchParams.get('code');
+    console.log('authorizationCode', authorizationCode);
     if (authorizationCode) {
+      console.log('코드있음');
       handleGithubLogin(authorizationCode);
       handleGoogleLogin(authorizationCode);
       handleKakaoLogin(authorizationCode);

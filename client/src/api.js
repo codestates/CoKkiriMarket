@@ -1,6 +1,6 @@
 const validationCheckAPI = {
   checkPostFormValid: (data) => {
-    if (!(data.category && data.title && data.price && data.description)) {
+    if (!(data.categories && data.title && data.price && data.contents)) {
       return false;
     }
     return true;
