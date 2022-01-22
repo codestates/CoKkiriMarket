@@ -15,7 +15,6 @@ const Login = ( { isLogin, setIsLogin, handleResponseSuccess, accessToken, setAc
       handleGoogleLogin(authorizationCode);
       handleKakaoLogin(authorizationCode);
     }
-    
   }, )
 
   const navigate = useNavigate();
