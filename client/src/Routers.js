@@ -22,8 +22,20 @@ export const Routers = ({
     <>
       <Routes>
         <Route path='/' element={<List />}></Route>
-        <Route path='/list/:id' element={<Post />}></Route>
-        <Route path='/add' element={<Add />}></Route>
+        <Route
+          path='/list/:id'
+          element={
+            <Post
+              isLogin={isLogin}
+              accessToken={accessToken}
+              userInfo={userInfo}
+            />
+          }
+        ></Route>
+        <Route
+          path='/add'
+          element={<Add sLogin={isLogin} accessToken={accessToken} />}
+        ></Route>
         <Route path='/search' element={<Search />}></Route>
         <Route path='/join' element={<Join />} />
         <Route

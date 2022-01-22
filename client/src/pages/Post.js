@@ -3,14 +3,17 @@ import axios from 'axios';
 import { useLocation } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 import SmallButton from '../components/common/SmallButton';
+import PostButtonWrapper from '../components/PostButtonWrapper';
 
-function Post() {
+function Post({ isLogin, accessToken, userInfo }) {
   const { pathname } = useLocation();
   const postId = Number(pathname.split('/')[2]);
   const [postInfo, setPostInfo] = useState({});
 
   useEffect(() => {
     console.log(postId);
+    console.log(accessToken); // string('')
+    console.log(userInfo); // useremail
     /* !서버에서 post 정보 받아오는 요청! */
     /* getPostDetails() */
   }, []);
@@ -41,6 +44,24 @@ function Post() {
     contents: '정상 작동 하구요, 이사 때문에 판매해요^^'
   };
 
+  const changeDateForm = (prev) => {
+    let curr = prev.slice(0, 10).split('-');
+    return `${curr[0]}년 ${curr[1]}월 ${curr[2]}일`;
+  };
+
+  // const deletePost = ()=>{
+  //   const options = {
+  //     method: 'delete',
+  //     url: `https://dev.cokkiriserver.xyz/`
+  //   };
+
+  //   axios(options)
+  //     .then((res) => {
+  //       console.log(res.data);
+  //     })
+  //     .catch();
+  // }
+
   return (
     <Main height='100vh'>
       <Section height='20rem'>
@@ -50,15 +71,17 @@ function Post() {
         <Price fontSize='1.5rem' fontWeight='700'>
           {result.price} 원
         </Price>
-        <SmallButton right='5rem'>수정</SmallButton>
-        <SmallButton right='0px'>삭제</SmallButton>
+        <PostButtonWrapper
+          isLogin={isLogin}
+          accessToken={accessToken}
+        ></PostButtonWrapper>
       </MainSection>
       <InfoSection height='18rem'>
         <Title fontSize='1.4rem' fontWeight='700'>
           {result.title}
         </Title>
         <PostInfo fontSize='0.9rem' fontWeight='200'>
-          {result.author} * {result.updatedAt}
+          {result.author} * {changeDateForm(result.updatedAt)}
         </PostInfo>
         <p>{result.contents}</p>
       </InfoSection>

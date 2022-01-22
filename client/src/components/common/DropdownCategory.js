@@ -74,7 +74,7 @@ function DropdownCategory({ list, fillPostForm, width }) {
 
   return (
     <Wrapper ref={dropDownRef} onClick={() => setIsOpen(!isOpen)} width={width}>
-      <span>{category ? category : '카테고리 선택'}</span>
+      <span>{category ? category : '카테고리'}</span>
       <span> ▼ </span>
       <Ul>{isOpen && showCategoryList()}</Ul>
     </Wrapper>

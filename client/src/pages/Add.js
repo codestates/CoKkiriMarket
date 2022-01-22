@@ -31,7 +31,9 @@ function Add() {
   return (
     <main>
       <form>
-        <SmallButton onClickHandler={submitPostForm}>등 록</SmallButton>
+        <SmallButton right='0' onClickHandler={submitPostForm}>
+          등 록
+        </SmallButton>
         <FormData fillPostForm={fillPostForm}></FormData>
       </form>
     </main>

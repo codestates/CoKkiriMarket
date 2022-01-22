@@ -3,7 +3,6 @@ import axios from 'axios';
 import PostList from '../components/postList/PostList';
 import SearchForm from '../components/SearchForm';
 import validationCheckAPI from '../api';
-import { Modal } from '../components/Modal';
 
 function Search() {
   const [postForm, setPostForm] = useState({ category: 0, word: '' });

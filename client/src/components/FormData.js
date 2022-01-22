@@ -6,6 +6,7 @@ import DropdownCategory from './common/DropdownCategory';
 const FormWrapper = styled.div`
   width: 100%;
   height: 90vh;
+  padding: 2rem 0;
   margin: 50px 0;
   display: flex;
   flex-direction: column;

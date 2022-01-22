@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import CircleButton from '../components/common/CircleButton';
 import PostList from '../components/postList/PostList';
 
-function List() {
+function List({ isLogin, accessToken }) {
   const [postList, setPostList] = useState([]);
 
   useEffect(() => {
@@ -27,9 +27,11 @@ function List() {
   return (
     <main>
       <PostList posts={postList}></PostList>
-      <Link to='/add'>
-        <CircleButton>+</CircleButton>
-      </Link>
+      {isLogin && (
+        <Link to='/add'>
+          <CircleButton>+</CircleButton>
+        </Link>
+      )}
     </main>
   );
 }
