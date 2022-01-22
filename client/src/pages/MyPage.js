@@ -2,6 +2,7 @@ import styled from "styled-components";
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
 export const MyPageContainer = styled.div`
   display: flex;
@@ -96,10 +97,15 @@ const MyPage = ({ isLogin, setIsLogin, setUserInfo, userInfo, handleLogout, acce
     {accessToken}      
       <MyPageTitle>My Page</MyPageTitle>
       <MyPageId>{userInfo} 님 환영합니다</MyPageId>
+
+      <Link to='/myposts' style={{ textDecoration: 'none' }}>
       <MyPageMenu>
         <MyMenuIcon src="/icons/mygoods.png" />
         나의 판매내역
       </MyPageMenu>
+      </Link>
+
+
       <MyPageMenu>
         <MyMenuIcon src="/icons/correct.png" />
         나의 정보수정
