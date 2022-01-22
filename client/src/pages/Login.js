@@ -4,7 +4,15 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
-const Login = ({ isLogin, setIsLogin, handleResponseSuccess, accessToken, setAccessToken }) => {
+const Login = ({ 
+  isLogin, 
+  setIsLogin, 
+  handleResponseSuccess,
+  accessToken,
+  setAccessToken,
+  userInfo,
+  setUserInfo
+}) => {
 
   useEffect(() => {
     let url = new URL(window.location.href);
@@ -16,7 +24,7 @@ const Login = ({ isLogin, setIsLogin, handleResponseSuccess, accessToken, setAcc
       handleGoogleLogin(authorizationCode);
       handleKakaoLogin(authorizationCode);
     }
-  }, )
+  },[] )
 
   const navigate = useNavigate();
   const [loginInfo, setLoginInfo] = useState({
@@ -56,7 +64,7 @@ const Login = ({ isLogin, setIsLogin, handleResponseSuccess, accessToken, setAcc
   };
 
     const socialLoginHandler = (key) => (e) => {
-      const redirectUri = 'https://localhost:3000/'
+      const redirectUri = 'https://localhost:3000/login'
       if (key === "github") {
         const githubclientId =
         '84a0db73c9e6deeb8373';
@@ -78,27 +86,33 @@ const Login = ({ isLogin, setIsLogin, handleResponseSuccess, accessToken, setAcc
         const KAKAO_LOGIN_URL =
         `https://kauth.kakao.com/oauth/authorize?client_id=${kakaoclientId}&redirect_uri=${redirectUri}&response_type=code`;
         window.location.assign(KAKAO_LOGIN_URL)
-        
       }
     }
-      const handleGithubLogin = async (authorizationCode) => {
-        const options = {
-          method: "POST",
-          url: "https://dev.cokkiriserver.xyz/oauth/oauthgithub",
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          withCredentials: true,
-          data: { authorizationCode: authorizationCode }
-        }
 
-        await axios(options)
-          .then((response) => {
-            setIsLogin(true);
-            setAccessToken(response.data.accessToken);
-          })
-          .catch((err) => null);
-      };
+    const handleGithubLogin = async (authorizationCode) => {
+      const options = {
+        method: "POST",
+        url: "https://dev.cokkiriserver.xyz/oauth/oauthgithub",
+        // url: "http://localhost:80/oauth/oauthgithub",
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        withCredentials: true,
+        data: { authorizationCode: authorizationCode }
+      }
+  
+      await axios(options)
+        .then((response) => {
+          console.log(response)
+          setIsLogin(true);
+          setAccessToken(response.data.data.accessToken);
+          setUserInfo(response.data.data.email)
+          console.log(userInfo)
+          console.log(accessToken)
+          navigate('/mypage')
+        })
+        .catch((err) => null);
+    };
 
       const handleGoogleLogin = async (authorizationCode) => {
         const options = {
@@ -110,12 +124,16 @@ const Login = ({ isLogin, setIsLogin, handleResponseSuccess, accessToken, setAcc
           withCredentials: true,
           data: { authorizationCode: authorizationCode }
         }
-    
+
         await axios(options)
           .then((response) => {
             console.log(response)
             setIsLogin(true);
-            setAccessToken(response.data.accessToken);
+            setAccessToken(response.data.data.accessToken);
+            setUserInfo(response.data.data.email)
+            console.log(userInfo)
+            console.log(accessToken)
+            navigate('/mypage')
           })
           .catch((err) => null);
       }
@@ -133,8 +151,13 @@ const Login = ({ isLogin, setIsLogin, handleResponseSuccess, accessToken, setAcc
     
         await axios(options)
           .then((response) => {
+            console.log(response)
             setIsLogin(true);
-            setAccessToken(response.data.accessToken);
+            setAccessToken(response.data.data.accessToken);
+            setUserInfo(response.data.data.email)
+            console.log(userInfo)
+            console.log(accessToken)
+            navigate('/mypage')
           })
           .catch((err) => null);
       }
@@ -164,12 +187,17 @@ const Login = ({ isLogin, setIsLogin, handleResponseSuccess, accessToken, setAcc
         <ErrorMsg>{errorMessage}</ErrorMsg>
       <LoginLine />
       <Link to="/join" style={{ textDecoration: 'none' }}><JoinBtnMail >메일로 시작하기 </JoinBtnMail></Link>
+     
       <JoinBtnGithub
         onClick={socialLoginHandler('github')}
       >깃허브로 시작하기</JoinBtnGithub>
+      
+      
       <JoinBtnGoogle
         onClick={socialLoginHandler('google')}
       > 구글로 시작하기</JoinBtnGoogle>
+      
+      
       <JoinBtnKaKao
         onClick={socialLoginHandler('kakao')}        
       > 카카오로 시작하기</JoinBtnKaKao>

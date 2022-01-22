@@ -52,6 +52,9 @@ const MyEdit = ({ isLogin, accessToken, }) => {
 
 
 
+
+  }
+
   const handleJoin = () => {
 
     if(id===''|| pw===''|| pwRe==='')return setErrorMessage('빈칸을 모두 입력하세요')
@@ -65,8 +68,11 @@ const MyEdit = ({ isLogin, accessToken, }) => {
       }
 
       const options = {
-        method: 'post',
-        url: 'https://dev.cokkiriserver.xyz/user/signup',
+        method: 'patch',
+        url: 'https://dev.cokkiriserver.xyz/user',
+        headers: {
+          "Authorization" : "Bearer "+ accessToken
+        },
         data: data
       }
 
@@ -74,7 +80,7 @@ const MyEdit = ({ isLogin, accessToken, }) => {
     .then((res) => {
       console.log(res)
       console.log(res.status)
-      navigate('/login');
+      navigate('/mypage');
     })
     .catch(function (error) {
       if (error.response) {
@@ -98,7 +104,6 @@ const MyEdit = ({ isLogin, accessToken, }) => {
       }
       console.log(error.config);
     });
-  }
   }
   return (
     <main>
@@ -135,8 +140,8 @@ const MyEdit = ({ isLogin, accessToken, }) => {
     <ErrorMsgLast>{errorMessage}</ErrorMsgLast>
     <JoinBtn 
     type='submit'
-
-    >회원가입</JoinBtn>
+    onClick={handleJoin}
+    >정보수정</JoinBtn>
     </JoinContainer>
     </main>
     )
