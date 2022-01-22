@@ -10,6 +10,7 @@ import Chat from './pages/Chat';
 import Search from './pages/Search';
 import MyPosts from './pages/MyPosts';
 import MyEdit from './pages/MyEdit';
+import Oauth from './pages/Oauth';
 
 export const Routers = ({
   isLogin,
@@ -69,7 +70,15 @@ export const Routers = ({
           accessToken={accessToken}
         />} />
         <Route path='/myedit' element={<MyEdit
+          isLogin={isLogin}
           accessToken={accessToken}
+        />} />
+        <Route path='/oauth' element={<Oauth
+          isLogin={isLogin}
+          userInfo={userInfo}
+          handleLogout={handleLogout}
+          accessToken={accessToken}
+          setAccessToken={setAccessToken}
         />} />
       </Routes>
     </>

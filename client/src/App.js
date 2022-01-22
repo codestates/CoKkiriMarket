@@ -26,6 +26,7 @@ function App() {
     setUserInfo(null);
     setIsLogin(false);
     navigate('/login');
+    setAccessToken('');
 
     axios
       .get('https://api.cokkirimarket.xyz/user/logout', {
@@ -34,10 +35,7 @@ function App() {
         }
       })
       .then((res) => {
-        setUserInfo(null);
-        setIsLogin(false);
-        setAccessToken('');
-        navigate('/login');
+
       })
       .catch((err) => {
         console.log('logout 실패');
