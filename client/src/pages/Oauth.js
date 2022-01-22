@@ -4,7 +4,7 @@ import { GoogleLoginButton, GithubLoginButton } from "react-social-login-buttons
 import axios from 'axios';
 // import { isEmail } from "./formCheck";
 
-function Login ({ isLogin, setIsLogin, setAccessToken }) {
+function Oauth ({ isLogin, setIsLogin, setAccessToken }) {
 
   const [email, setEmail] = useState(null);
   const [password, setPassword] = useState(null);
@@ -14,7 +14,7 @@ function Login ({ isLogin, setIsLogin, setAccessToken }) {
   useEffect(() => {
     let url = new URL(window.location.href);
     let authorizationCode = url.searchParams.get("code");
-    console.log('authorizationCode',authorizationCode)
+    console.log('authorizationCode', authorizationCode)
     if (authorizationCode) {
       handleGithubLogin(authorizationCode);
       handleGoogleLogin(authorizationCode);
@@ -234,4 +234,4 @@ function Login ({ isLogin, setIsLogin, setAccessToken }) {
   );
 }
 
-export default Login;
+export default Oauth;

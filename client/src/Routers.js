@@ -17,6 +17,7 @@ export const Routers = ({
   setIsLogin,
   handleResponseSuccess,
   userInfo,
+  setUserInfo,
   handleLogout,
   accessToken,
   setAccessToken
@@ -48,6 +49,8 @@ export const Routers = ({
               isLogin={isLogin}
               setIsLogin={setIsLogin}
               handleResponseSuccess={handleResponseSuccess}
+              userInfo={userInfo}
+              setUserInfo={setUserInfo}
               accessToken={accessToken}
               setAccessToken={setAccessToken}
             />

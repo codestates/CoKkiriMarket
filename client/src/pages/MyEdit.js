@@ -47,54 +47,57 @@ const MyEdit = ({ isLogin, accessToken }) => {
         setPasswordErrMsg('4~12자로 숫자/영문자를 포함해 주세요');
       else setPasswordErrMsg('');
     }
+  };
 
-    const handleJoin = () => {
-      if (id === '' || pw === '' || pwRe === '')
-        return setErrorMessage('빈칸을 모두 입력하세요');
+  const handleJoin = () => {
+    if (id === '' || pw === '' || pwRe === '')
+      return setErrorMessage('빈칸을 모두 입력하세요');
 
-      if (passwordErrMsg === '4~12자로 숫자/영문자를 포함해 주세요')
-        return setErrorMessage('비밀번호를 확인해 주세요');
-      if (pw !== '' && pwRe !== '' && pw !== pwRe)
-        return setErrorMessage('동일한 비밀번호를 입력하세요');
+    if (passwordErrMsg === '4~12자로 숫자/영문자를 포함해 주세요')
+      return setErrorMessage('비밀번호를 확인해 주세요');
+    if (pw !== '' && pwRe !== '' && pw !== pwRe)
+      return setErrorMessage('동일한 비밀번호를 입력하세요');
 
-      const data = {
-        user_id: id,
-        password: pw
-      };
-
-      const options = {
-        method: 'post',
-        url: 'https://dev.cokkiriserver.xyz/user/signup',
-        data: data
-      };
-
-      axios(options)
-        .then((res) => {
-          console.log(res);
-          console.log(res.status);
-          navigate('/login');
-        })
-        .catch(function (error) {
-          if (error.response) {
-            // 요청이 이루어졌으며 서버가 2xx의 범위를 벗어나는 상태 코드로 응답했습니다.
-            console.log(error.response.data);
-            console.log(error.response.status);
-            console.log(error.response.headers);
-            setErrorMessage('회원가입 중 에러가 발생하였습니다');
-          } else if (error.request) {
-            // 요청이 이루어 졌으나 응답을 받지 못했습니다.
-            // `error.request`는 브라우저의 XMLHttpRequest 인스턴스 또는
-            // Node.js의 http.ClientRequest 인스턴스입니다.
-            setErrorMessage('회원가입 중 에러가 발생하였습니다');
-            console.log(error.request);
-          } else {
-            // 오류를 발생시킨 요청을 설정하는 중에 문제가 발생했습니다.
-            setErrorMessage('회원가입 중 에러가 발생하였습니다');
-            console.log('Error', error.message);
-          }
-          console.log(error.config);
-        });
+    const data = {
+      user_id: id,
+      password: pw
     };
+
+    const options = {
+      method: 'patch',
+      url: 'https://dev.cokkiriserver.xyz/user',
+      headers: {
+        Authorization: 'Bearer ' + accessToken
+      },
+      data: data
+    };
+
+    axios(options)
+      .then((res) => {
+        console.log(res);
+        console.log(res.status);
+        navigate('/mypage');
+      })
+      .catch(function (error) {
+        if (error.response) {
+          // 요청이 이루어졌으며 서버가 2xx의 범위를 벗어나는 상태 코드로 응답했습니다.
+          console.log(error.response.data);
+          console.log(error.response.status);
+          console.log(error.response.headers);
+          setErrorMessage('회원가입 중 에러가 발생하였습니다');
+        } else if (error.request) {
+          // 요청이 이루어 졌으나 응답을 받지 못했습니다.
+          // `error.request`는 브라우저의 XMLHttpRequest 인스턴스 또는
+          // Node.js의 http.ClientRequest 인스턴스입니다.
+          setErrorMessage('회원가입 중 에러가 발생하였습니다');
+          console.log(error.request);
+        } else {
+          // 오류를 발생시킨 요청을 설정하는 중에 문제가 발생했습니다.
+          setErrorMessage('회원가입 중 에러가 발생하였습니다');
+          console.log('Error', error.message);
+        }
+        console.log(error.config);
+      });
   };
   return (
     <main>
@@ -132,7 +135,9 @@ const MyEdit = ({ isLogin, accessToken }) => {
         </form>
         <JoinLine />
         <ErrorMsgLast>{errorMessage}</ErrorMsgLast>
-        <JoinBtn type='submit'>회원가입</JoinBtn>
+        <JoinBtn type='submit' onClick={handleJoin}>
+          정보수정
+        </JoinBtn>
       </JoinContainer>
     </main>
   );

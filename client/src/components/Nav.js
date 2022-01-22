@@ -56,9 +56,7 @@ const Nav = ({ isLogin }) => {
             <NavMyPage />
           </Link>
         ) : null}
-        <Link to='/oauth' style={{ textDecoration: 'none' }}>
-          <NavSearch />
-        </Link>
+
       </NavContainer>
     </>
   );

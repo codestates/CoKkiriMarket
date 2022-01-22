@@ -87,6 +87,7 @@ const Login = ({
     const options = {
       method: 'POST',
       url: 'https://dev.cokkiriserver.xyz/oauth/oauthgithub',
+      // url: "http://localhost:80/oauth/oauthgithub",
       headers: {
         'Content-Type': 'application/json'
       },
@@ -104,7 +105,7 @@ const Login = ({
         console.log(accessToken);
         navigate('/mypage');
       })
-      .catch(console.log);
+      .catch((err) => null);
   };
 
   const handleGoogleLogin = async (authorizationCode) => {
