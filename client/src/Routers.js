@@ -21,7 +21,7 @@ export const Routers = ({
   return (
     <>
       <Routes>
-        <Route path='/' element={<List />}></Route>
+        <Route path='/' element={<List isLogin={isLogin} />}></Route>
         <Route
           path='/list/:id'
           element={

@@ -1,5 +1,6 @@
 import React, { useRef } from 'react';
 import styled from 'styled-components';
+import axios from 'axios';
 import { categoryList } from '../data/dummy';
 import DropdownCategory from './common/DropdownCategory';
 
@@ -60,6 +61,21 @@ function FormData({ fillPostForm }) {
   const previewHandler = (e) => {
     console.log(e.target.files[0]);
     /* !클라우드 플레어 url 받아오기! */
+    const options = {
+      method: 'post',
+      url: `https://dev.cokkiriserver.xyz/image/geturl`,
+      withCredentials: true,
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    };
+    axios(options)
+      .then((res) => {
+        const { id, uploadURL } = res.data.data;
+        console.log(id);
+        console.log(uploadURL);
+      })
+      .catch(console.log);
     /* !setPreview 후, Preview 띄우기! */
   };
 
