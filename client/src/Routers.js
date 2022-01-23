@@ -20,7 +20,9 @@ export const Routers = ({
   setUserInfo,
   handleLogout,
   accessToken,
-  setAccessToken
+  setAccessToken,
+  getUserInfo,
+  userId
 }) => {
   return (
     <>
@@ -29,11 +31,7 @@ export const Routers = ({
         <Route
           path='/list/:id'
           element={
-            <Post
-              isLogin={isLogin}
-              accessToken={accessToken}
-              userInfo={userInfo}
-            />
+            <Post isLogin={isLogin} accessToken={accessToken} userId={userId} />
           }
         ></Route>
         <Route
@@ -53,6 +51,7 @@ export const Routers = ({
               setUserInfo={setUserInfo}
               accessToken={accessToken}
               setAccessToken={setAccessToken}
+              getUserInfo={getUserInfo}
             />
           }
         />

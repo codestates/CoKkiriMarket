@@ -11,7 +11,8 @@ const Login = ({
   accessToken,
   setAccessToken,
   userInfo,
-  setUserInfo
+  setUserInfo,
+  getUserInfo
 }) => {
   useEffect(() => {
     let url = new URL(window.location.href);
@@ -49,6 +50,7 @@ const Login = ({
           handleResponseSuccess(loginInfo.email);
           setAccessToken(res.data.accessToken);
           navigate('/mypage');
+          getUserInfo(res.data.accessToken);
         })
         .catch((err) => {
           if (err.response) {
@@ -104,6 +106,7 @@ const Login = ({
         console.log(userInfo);
         console.log(accessToken);
         navigate('/mypage');
+        getUserInfo(response.data.data.accessToken);
       })
       .catch((err) => null);
   };
@@ -128,6 +131,8 @@ const Login = ({
         console.log(userInfo);
         console.log(accessToken);
         navigate('/mypage');
+        console.log('토큰 확인', response.data);
+        getUserInfo(response.data.data.accessToken);
       })
       .catch((err) => null);
   };
@@ -152,6 +157,7 @@ const Login = ({
         console.log(userInfo);
         console.log(accessToken);
         navigate('/mypage');
+        getUserInfo(response.data.data.accessToken);
       })
       .catch((err) => null);
   };
