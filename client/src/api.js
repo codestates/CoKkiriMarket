@@ -1,6 +1,6 @@
-const validationCheckAPI = {
+export const validationCheckAPI = {
   checkPostFormValid: (data) => {
-    if (!(data.category && data.title && data.price && data.description)) {
+    if (!(data.category && data.title && data.price && data.contents)) {
       return false;
     }
     return true;
@@ -13,5 +13,3 @@ const validationCheckAPI = {
     return true;
   }
 };
-
-export default validationCheckAPI;

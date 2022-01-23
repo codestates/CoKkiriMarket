@@ -8,7 +8,7 @@ export const ModalBackdrop = styled.div`
   left: 0;
   bottom: 0;
   right: 0;
-  background-color: rgba(0,0,0,0.4);
+  background-color: rgba(0, 0, 0, 0.4);
   display: grid;
   place-items: center;
 `;
@@ -30,40 +30,44 @@ export const ModalBtn = styled.button`
   cursor: grab;
 `;
 
-export const ModalView = styled.div.attrs(props => ({
+export const ModalView = styled.div.attrs((props) => ({
   // attrs 메소드를 이용해서 아래와 같이 div 엘리먼트에 속성을 추가할 수 있습니다.
   role: 'dialog'
 }))`
-    border-radius: 10px;
-    background-color: #ffffff;
-    width: 300px;
-    height: 100px;
+  border-radius: 10px;
+  background-color: #ffffff;
+  width: 300px;
+  height: 120px;
+  position: relative;
+  display: flex;
+  justify-content: center;
 
-    > span.close-btn {
-      margin-top: 5px;
-      cursor: pointer;
-    }
-
-    > div.desc {
-      margin-top: 25px;
-      color: #4000c7;
-    }
+  > div.desc {
+    margin-top: 25px;
+    color: ${({ theme }) => theme.colors.blue_dark};
+    font-size: 1.3rem;
+  }
 `;
 
-export const Modal = () => {
+export const Modal = (props) => {
   const [isOpen, setIsOpen] = useState(true);
   const openModalHandler = () => {
     setIsOpen(!isOpen);
+    props.modalHandler(!isOpen);
   };
+
+  console.log(props.children[0]);
+
   return (
     <>
       <ModalContainer>
-        {isOpen === true ? <ModalBackdrop onClick={openModalHandler}>
-          <ModalView onClick={(e) => e.stopPropagation()}>
-            <span onClick={openModalHandler} className='close-btn'>&times;</span>
-            <div className='desc'>HELLO CODESTATES!</div>
-          </ModalView>
-        </ModalBackdrop> : null}
+        {isOpen === true ? (
+          <ModalBackdrop onClick={openModalHandler}>
+            <ModalView onClick={(e) => e.stopPropagation()}>
+              <div className='desc'>{props.children}</div>
+            </ModalView>
+          </ModalBackdrop>
+        ) : null}
       </ModalContainer>
     </>
   );

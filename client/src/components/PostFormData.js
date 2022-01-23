@@ -1,6 +1,6 @@
-import React, { useRef } from 'react';
-import styled from 'styled-components';
-import { categoryList } from '../data/dummy';
+import React, { useRef, useState } from 'react';
+import styled, { css } from 'styled-components';
+import axios from 'axios';
 import DropdownCategory from './common/DropdownCategory';
 
 const FormWrapper = styled.div`
@@ -21,13 +21,23 @@ const ImgWrapper = styled.div`
   justify-content: center;
 `;
 
-const Preview = styled.div`
-  width: 55%;
-  height: 6.5rem;
+const preview = css`
   background-color: white;
   border: 1px solid ${({ theme }) => theme.colors.grey};
-  border-radius: 30px;
+  border-radius: 1rem;
   box-shadow: 1px 1px 10px -5px ${({ theme }) => theme.colors.blue_base};
+`;
+
+const PreviewDiv = styled.div`
+  ${preview};
+  width: 60%;
+  height: 12rem;
+`;
+
+const PreviewImg = styled.img`
+  ${preview}
+  width:100%;
+  height: 100%;
 `;
 
 export const SingleInput = styled.input`
@@ -54,24 +64,65 @@ const Textarea = styled.textarea`
   box-shadow: 1px 1px 10px -5px ${({ theme }) => theme.colors.blue_base};
 `;
 
-function FormData({ fillPostForm }) {
+function PostFormData({ fillPostForm, categoryList }) {
   const fileRef = useRef(null);
+  const [preview, setPreview] = useState('');
 
   const previewHandler = (e) => {
-    console.log(e.target.files[0]);
-    /* !클라우드 플레어 url 받아오기! */
-    /* !setPreview 후, Preview 띄우기! */
+    const uploadFile = e.target.files[0];
+    getCloudUrl(uploadFile);
+  };
+
+  const getCloudUrl = (uploadFile) => {
+    const options = {
+      method: 'post',
+      url: `https://dev.cokkiriserver.xyz/image/geturl`,
+      withCredentials: true,
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    };
+
+    axios(options)
+      .then((res) => {
+        const { uploadURL } = res.data.data;
+        uploadCloudImg(uploadFile, uploadURL);
+      })
+      .catch(console.log);
+  };
+
+  const uploadCloudImg = (file, url) => {
+    let bodyFormData = new FormData();
+    bodyFormData.append('file', file);
+
+    const options = {
+      method: 'post',
+      url,
+      data: bodyFormData,
+      headers: { 'Content-Type': 'multipart/form-data' }
+    };
+
+    axios(options)
+      .then((res) => {
+        const image_src = res.data.result.variants[0];
+        fillPostForm({ image_src });
+        setPreview(image_src);
+        console.log(preview);
+      })
+      .catch(console.log);
   };
 
   return (
     <FormWrapper>
       <ImgWrapper>
-        <Preview onClick={() => fileRef.current.click()}></Preview>
+        <PreviewDiv onClick={() => fileRef.current.click()}>
+          {preview && <PreviewImg src={preview}></PreviewImg>}
+        </PreviewDiv>
         <FileInput
           type='file'
           ref={fileRef}
           accept='.jpeg, .jpg, .png'
-          onChange={(e) => previewHandler(e)}
+          onChange={previewHandler}
         />
       </ImgWrapper>
       <SingleInput
@@ -80,7 +131,7 @@ function FormData({ fillPostForm }) {
         onChange={(e) => fillPostForm({ title: e.target.value })}
       />
       <DropdownCategory
-        list={categoryList.slice(1)}
+        list={categoryList}
         fillPostForm={fillPostForm}
         width='85%'
       ></DropdownCategory>
@@ -91,10 +142,10 @@ function FormData({ fillPostForm }) {
       />
       <Textarea
         placeholder='내용을 입력하세요'
-        onChange={(e) => fillPostForm({ description: e.target.value })}
+        onChange={(e) => fillPostForm({ contents: e.target.value })}
       ></Textarea>
     </FormWrapper>
   );
 }
 
-export default FormData;
+export default PostFormData;

@@ -1,16 +1,25 @@
-import React, { useState } from 'react';
-import validationCheckAPI from '../api';
+import axios from 'axios';
+import React, { useState, useEffect } from 'react';
+import { validationCheckAPI } from '../api';
 import SmallButton from '../components/common/SmallButton';
-import FormData from '../components/FormData';
+import PostFormData from '../components/PostFormData';
+import { useNavigate } from 'react-router-dom';
 
-function Add() {
+function Add({ accessToken }) {
+  const navigate = useNavigate();
+  const [categoryList, setCategoryList] = useState([]);
   const [postForm, setPostForm] = useState({
-    img: '',
-    category: 0,
     title: '',
+    contents: '',
     price: '',
-    description: ''
+    category: '',
+    image_src: ''
   });
+
+  useEffect(() => {
+    console.log(accessToken);
+    getCategoryList();
+  }, []);
 
   const submitPostForm = (e) => {
     e.preventDefault();
@@ -20,8 +29,47 @@ function Add() {
       console.log('try again');
       return;
     }
-    /* !postForm axios로 전송하는 로직! */
     console.log(postForm);
+    postPostDataForm(postForm);
+  };
+
+  const postPostDataForm = (postForm) => {
+    const options = {
+      method: 'post',
+      url: 'https://dev.cokkiriserver.xyz/post',
+      withCredentials: true,
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + accessToken
+      },
+      data: postForm
+    };
+
+    axios(options)
+      .then((res) => {
+        console.log(res);
+        navigate('/');
+      })
+      .catch(console.log);
+  };
+
+  const getCategoryList = () => {
+    const options = {
+      method: 'get',
+      url: `https://dev.cokkiriserver.xyz/search`,
+      data: {
+        payload: {
+          query: 'categoryList'
+        }
+      }
+    };
+
+    axios(options)
+      .then((res) => {
+        console.log(res.data.data);
+        setCategoryList(res.data.data);
+      })
+      .catch(console.log);
   };
 
   const fillPostForm = (data) => {
@@ -34,7 +82,10 @@ function Add() {
         <SmallButton right='0' onClickHandler={submitPostForm}>
           등 록
         </SmallButton>
-        <FormData fillPostForm={fillPostForm}></FormData>
+        <PostFormData
+          fillPostForm={fillPostForm}
+          categoryList={categoryList}
+        ></PostFormData>
       </form>
     </main>
   );

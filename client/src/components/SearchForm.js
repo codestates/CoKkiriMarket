@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import { categoryList } from '../data/dummy';
 import DropdownCategory from './common/DropdownCategory';
 import Searchbar from './Searchbar';
 
@@ -12,12 +11,14 @@ const Wrapper = styled.form`
   align-items: center;
 `;
 
-function SearchForm({ fillPostForm, submitPostForm }) {
+function SearchForm({ fillPostForm, submitPostForm, categoryList }) {
+  const categories = [{ id: 0, category: '없음' }, ...categoryList];
+
   return (
     <Wrapper>
       <DropdownCategory
         width='35%'
-        list={categoryList}
+        list={categories}
         fillPostForm={fillPostForm}
       ></DropdownCategory>
       <Searchbar

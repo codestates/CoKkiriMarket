@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { Modal } from '../components/Modal';
+
 import {
   JoinContainer,
   JoinTitle,

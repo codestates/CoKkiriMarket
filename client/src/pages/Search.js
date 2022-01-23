@@ -1,12 +1,17 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import PostList from '../components/postList/PostList';
 import SearchForm from '../components/SearchForm';
-import validationCheckAPI from '../api';
+import { validationCheckAPI } from '../api';
 
 function Search() {
+  const [categoryList, setCategoryList] = useState([]);
   const [postForm, setPostForm] = useState({ category: 0, word: '' });
   const [postList, setPostList] = useState([]);
+
+  useEffect(() => {
+    getCategoryList();
+  }, []);
 
   const fillPostForm = (data) => {
     setPostForm(Object.assign(postForm, data));
@@ -21,6 +26,26 @@ function Search() {
     getSearchList();
   };
 
+  const getCategoryList = () => {
+    console.log('hi');
+    const options = {
+      method: 'get',
+      url: `https://dev.cokkiriserver.xyz/search`,
+      data: {
+        payload: {
+          query: 'categoryList'
+        }
+      }
+    };
+
+    axios(options)
+      .then((res) => {
+        console.log(res.data.data);
+        setCategoryList(res.data.data);
+      })
+      .catch(console.log);
+  };
+
   const getSearchList = () => {
     const options = {
       method: 'post',
@@ -32,6 +57,8 @@ function Search() {
         }
       }
     };
+
+    console.log(options);
 
     axios(options)
       .then((res) => {
@@ -45,6 +72,7 @@ function Search() {
       <SearchForm
         fillPostForm={fillPostForm}
         submitPostForm={submitPostForm}
+        categoryList={categoryList}
       ></SearchForm>
       <PostList posts={postList}></PostList>
     </main>
