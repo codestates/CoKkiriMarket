@@ -1,20 +1,23 @@
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
-import validationCheckAPI from '../api';
+import { validationCheckAPI } from '../api';
 import SmallButton from '../components/common/SmallButton';
 import PostFormData from '../components/PostFormData';
+import { useNavigate } from 'react-router-dom';
 
 function Add({ accessToken }) {
+  const navigate = useNavigate();
   const [categoryList, setCategoryList] = useState([]);
   const [postForm, setPostForm] = useState({
     title: '',
     contents: '',
     price: '',
-    categories: '',
+    category: '',
     image_src: ''
   });
 
   useEffect(() => {
+    console.log(accessToken);
     getCategoryList();
   }, []);
 
@@ -26,7 +29,7 @@ function Add({ accessToken }) {
       console.log('try again');
       return;
     }
-
+    console.log(postForm);
     postPostDataForm(postForm);
   };
 
@@ -44,13 +47,13 @@ function Add({ accessToken }) {
 
     axios(options)
       .then((res) => {
-        console.log(res.data);
+        console.log(res);
+        navigate('/');
       })
-      .catch();
+      .catch(console.log);
   };
 
   const getCategoryList = () => {
-    console.log('hi');
     const options = {
       method: 'get',
       url: `https://dev.cokkiriserver.xyz/search`,

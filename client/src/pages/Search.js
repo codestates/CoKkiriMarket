@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import PostList from '../components/postList/PostList';
 import SearchForm from '../components/SearchForm';
-import validationCheckAPI from '../api';
+import { validationCheckAPI } from '../api';
 
 function Search() {
   const [categoryList, setCategoryList] = useState([]);

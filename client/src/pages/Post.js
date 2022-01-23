@@ -15,37 +15,26 @@ function Post({ isLogin, accessToken, userInfo }) {
     console.log(postId);
     console.log(accessToken); // string('')
     console.log(userInfo); // useremail
-    /* !서버에서 post 정보 받아오는 요청! */
-    /* getPostDetails() */
+    getPostDetails();
   }, []);
 
   const getPostDetails = () => {
     const options = {
       method: 'get',
-      /* !쿼리로 포스트 아이디! */
-      url: `https://dev.cokkiriserver.xyz/search`
+      url: `https://dev.cokkiriserver.xyz/post?id=${postId}`
     };
 
     axios(options)
       .then((res) => {
-        console.log(res.data);
+        const currentPost = res.data.data[0];
+        console.log(currentPost);
+        setPostInfo(currentPost);
       })
       .catch();
   };
 
-  const result = {
-    id: 16,
-    image_src:
-      'https://dnvefa72aowie.cloudfront.net/origin/article/202201/b983f3fcb31388cc23d89e6e70a5279062f1accd3fa8bdd0d7ec6f6d7540fa04.webp?q=95&s=1440x1440&t=inside',
-    price: '15000',
-    user_id: 3,
-    author: '김코딩',
-    title: 'sk 매직 전자렌지 팔아요!!!',
-    updatedAt: '2022-01-21T05:54:23.000Z',
-    contents: '정상 작동 하구요, 이사 때문에 판매해요^^'
-  };
-
   const changeDateForm = (prev) => {
+    '2022-01-22T14:23:46.000Z';
     let curr = prev.slice(0, 10).split('-');
     return `${curr[0]}년 ${curr[1]}월 ${curr[2]}일`;
   };
@@ -66,11 +55,11 @@ function Post({ isLogin, accessToken, userInfo }) {
   return (
     <Main height='100vh'>
       <Section height='20rem'>
-        <Img height='100%' src={result.image_src} />
+        <Img height='100%' src={postInfo.image_src} />
       </Section>
       <MainSection height='5rem'>
         <Price fontSize='1.5rem' fontWeight='700'>
-          {result.price} 원
+          {postInfo.price} 원
         </Price>
         <PostButtonWrapper
           isLogin={isLogin}
@@ -79,12 +68,13 @@ function Post({ isLogin, accessToken, userInfo }) {
       </MainSection>
       <InfoSection height='18rem'>
         <Title fontSize='1.4rem' fontWeight='700'>
-          {result.title}
+          {postInfo.title}
         </Title>
         <PostInfo fontSize='0.9rem' fontWeight='200'>
-          {result.author} * {changeDateForm(result.updatedAt)}
+          {postInfo.user && postInfo.user.nickname} *{' '}
+          {postInfo.updatedAt && changeDateForm(postInfo.updatedAt)}
         </PostInfo>
-        <p>{result.contents}</p>
+        <p>{postInfo.contents}</p>
       </InfoSection>
     </Main>
   );

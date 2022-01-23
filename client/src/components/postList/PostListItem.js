@@ -51,14 +51,18 @@ const PostPrice = styled.span`
 `;
 
 function PostListItem({ info }) {
-  console.log(info);
   return (
     <StLink to={`/list/${info.id}`}>
       <PostItemWrapper>
-        <PostImg src={info.image_src} />
+        <PostImg
+          src={info.image_src ? info.image_src : './icons/elephant.png'}
+        />
         <PostInfo>
           <PostTitle>{info.title}</PostTitle>
-          <PostPrice>{info.price}</PostPrice>
+          <PostPrice>
+            {info.post_has_categories[0] &&
+              info.post_has_categories[0].category.category}
+          </PostPrice>
           <PostPrice>{info.price + '원'}</PostPrice>
         </PostInfo>
       </PostItemWrapper>

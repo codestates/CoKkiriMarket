@@ -69,6 +69,7 @@ function DropdownCategory({ list, fillPostForm, width }) {
 
   const onCategoryClickHandler = (id, name) => {
     setCategory(name);
+    console.log('here');
     fillPostForm && fillPostForm({ category: id });
   };
 
