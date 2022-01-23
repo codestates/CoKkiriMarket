@@ -2,9 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useLocation } from 'react-router-dom';
 import styled, { css } from 'styled-components';
-import SmallButton from '../components/common/SmallButton';
 import PostButtonWrapper from '../components/PostButtonWrapper';
-import { Modal } from '../components/common/Modal';
 
 function Post({ isLogin, accessToken, userId }) {
   const { pathname } = useLocation();
@@ -38,18 +36,35 @@ function Post({ isLogin, accessToken, userId }) {
     return `${curr[0]}년 ${curr[1]}월 ${curr[2]}일`;
   };
 
-  // const deletePost = ()=>{
-  //   const options = {
-  //     method: 'delete',
-  //     url: `https://dev.cokkiriserver.xyz/`
-  //   };
+  const deletePost = () => {
+    console.log('delete');
+    const options = {
+      method: 'delete',
+      url: `https://dev.cokkiriserver.xyz/post?id=${postId}`,
+      withCredentials: true,
+      headers: {
+        Authorization: 'Bearer ' + accessToken
+      }
+    };
 
-  //   axios(options)
-  //     .then((res) => {
-  //       console.log(res.data);
-  //     })
-  //     .catch();
-  // }
+    axios(options)
+      .then((res) => {
+        console.log(res);
+      })
+      .catch(console.log);
+  };
+
+  const patchPost = () => {
+    console.log('patch');
+    const options = {
+      method: 'patch',
+      url: `https://dev.cokkiriserver.xyz/post?id=${postId}`,
+      withCredentials: true,
+      headers: {
+        Authorization: 'Bearer ' + accessToken
+      }
+    };
+  };
 
   return (
     <Main height='100vh'>
@@ -65,6 +80,8 @@ function Post({ isLogin, accessToken, userId }) {
           accessToken={accessToken}
           postUserId={postInfo.user_id}
           userId={userId}
+          deletePost={deletePost}
+          patchPost={patchPost}
         ></PostButtonWrapper>
       </MainSection>
       <InfoSection height='18rem'>
