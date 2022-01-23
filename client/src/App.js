@@ -34,9 +34,7 @@ function App() {
           Authorization: 'Bearer ' + accessToken
         }
       })
-      .then((res) => {
-
-      })
+      .then((res) => {})
       .catch((err) => {
         console.log('logout 실패');
       });

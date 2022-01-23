@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { Modal } from '../components/Modal';
+
 import {
   JoinContainer,
   JoinTitle,
@@ -15,7 +15,7 @@ import {
   ErrorMsgLast
 } from './Join';
 
-const MyEdit = ({ isLogin, accessToken }) => {
+const MyEdit = ({ isLogin, accessToken, setIsModal, setModalMsg }) => {
   const navigate = useNavigate();
   const [userinfo, setuserinfo] = useState({
     user_id: '',
@@ -76,6 +76,8 @@ const MyEdit = ({ isLogin, accessToken }) => {
       .then((res) => {
         console.log(res);
         console.log(res.status);
+        setIsModal(true);
+        setModalMsg('정보수정이 완료되었습니다');
         navigate('/mypage');
       })
       .catch(function (error) {

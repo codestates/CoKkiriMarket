@@ -10,7 +10,6 @@ import Chat from './pages/Chat';
 import Search from './pages/Search';
 import MyPosts from './pages/MyPosts';
 import MyEdit from './pages/MyEdit';
-import Oauth from './pages/Oauth';
 
 export const Routers = ({
   isLogin,
@@ -25,7 +24,7 @@ export const Routers = ({
   return (
     <>
       <Routes>
-        <Route path='/' element={<List />}></Route>
+        <Route path='/' element={<List isLogin={isLogin} />}></Route>
         <Route
           path='/list/:id'
           element={
@@ -38,7 +37,7 @@ export const Routers = ({
         ></Route>
         <Route
           path='/add'
-          element={<Add sLogin={isLogin} accessToken={accessToken} />}
+          element={<Add isLogin={isLogin} accessToken={accessToken} />}
         ></Route>
         <Route path='/search' element={<Search />}></Route>
         <Route path='/join' element={<Join />} />
@@ -69,20 +68,14 @@ export const Routers = ({
           }
         />
         <Route path='/chat' element={<Chat />} />
-        <Route path='/myposts' element={<MyPosts
-          accessToken={accessToken}
-        />} />
-        <Route path='/myedit' element={<MyEdit
-          isLogin={isLogin}
-          accessToken={accessToken}
-        />} />
-        <Route path='/oauth' element={<Oauth
-          isLogin={isLogin}
-          userInfo={userInfo}
-          handleLogout={handleLogout}
-          accessToken={accessToken}
-          setAccessToken={setAccessToken}
-        />} />
+        <Route
+          path='/myposts'
+          element={<MyPosts accessToken={accessToken} />}
+        />
+        <Route
+          path='/myedit'
+          element={<MyEdit isLogin={isLogin} accessToken={accessToken} />}
+        />
       </Routes>
     </>
   );
