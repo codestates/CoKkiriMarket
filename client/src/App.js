@@ -13,6 +13,7 @@ function App() {
   const [isLogin, setIsLogin] = useState(false);
   const [userInfo, setUserInfo] = useState('');
   const [accessToken, setAccessToken] = useState('');
+  const [userId, setUserId] = useState('');
 
   const navigate = useNavigate();
   const isAuthenticated = () => {
@@ -34,12 +35,28 @@ function App() {
           Authorization: 'Bearer ' + accessToken
         }
       })
-      .then((res) => {
-
-      })
+      .then((res) => {})
       .catch((err) => {
         console.log('logout 실패');
       });
+  };
+
+  const getUserInfo = (token) => {
+    const options = {
+      method: 'get',
+      url: `https://dev.cokkiriserver.xyz/user/mypage`,
+      withCredentials: true,
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + token
+      }
+    };
+
+    axios(options)
+      .then((res) => {
+        setUserId(res.data.userInfo.id);
+      })
+      .catch();
   };
 
   useEffect(() => {
@@ -60,6 +77,8 @@ function App() {
           handleLogout={handleLogout}
           accessToken={accessToken}
           setAccessToken={setAccessToken}
+          getUserInfo={getUserInfo}
+          userId={userId}
         ></Routers>
         <Nav isLogin={isLogin} />
       </ThemeProvider>

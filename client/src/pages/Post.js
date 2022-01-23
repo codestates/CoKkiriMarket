@@ -6,7 +6,7 @@ import SmallButton from '../components/common/SmallButton';
 import PostButtonWrapper from '../components/PostButtonWrapper';
 import { Modal } from '../components/common/Modal';
 
-function Post({ isLogin, accessToken, userInfo }) {
+function Post({ isLogin, accessToken, userId }) {
   const { pathname } = useLocation();
   const postId = Number(pathname.split('/')[2]);
   const [postInfo, setPostInfo] = useState({});
@@ -14,7 +14,6 @@ function Post({ isLogin, accessToken, userInfo }) {
   useEffect(() => {
     console.log(postId);
     console.log(accessToken); // string('')
-    console.log(userInfo); // useremail
     getPostDetails();
   }, []);
 
@@ -64,6 +63,8 @@ function Post({ isLogin, accessToken, userInfo }) {
         <PostButtonWrapper
           isLogin={isLogin}
           accessToken={accessToken}
+          postUserId={postInfo.user_id}
+          userId={userId}
         ></PostButtonWrapper>
       </MainSection>
       <InfoSection height='18rem'>

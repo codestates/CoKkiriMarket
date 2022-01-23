@@ -1,16 +1,25 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import SmallButton from './common/SmallButton';
 import { Modal } from './common/Modal';
 import { useNavigate } from 'react-router-dom';
 
-function PostButtonWrapper({ isLogin, accessToken }) {
-  const isAuthor = false; // 임시로 고정
-  const [showModal, setShowModal] = useState(false);
+function PostButtonWrapper({ isLogin, accessToken, postUserId, userId }) {
   const navigate = useNavigate();
+  const [isAuthor, setIsAuthor] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+
+  console.log('작성자 id', postUserId); //
+  console.log('사용자 id', userId);
 
   const modalHandler = (a) => {
     setShowModal(a);
   };
+
+  useEffect(() => {
+    if (postUserId === userId) {
+      setIsAuthor(true);
+    }
+  });
 
   return isAuthor ? (
     <>
