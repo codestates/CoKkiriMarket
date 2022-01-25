@@ -71,7 +71,7 @@ module.exports = {
             if(iscreated){
                 res.status(201).json({ message: 'successful' })
             } else {
-                res.status(400).json( { message: '닉네임이 중복되었습니다.' })
+                res.status(200).json( { message: 'email이 중복되었습니다.' })
             }
             
 
@@ -126,7 +126,7 @@ module.exports = {
 
         keysArr.forEach((elements) => {
             if(userInfoFromAccessToken[elements] !== userInfoFromRefreshToken[elements]) {
-                return res.status(401).json({ message: '인증 정보가 만료되었습니다.' })
+                //return res.status(401).json({ message: '인증 정보가 만료되었습니다.' })
             }
         })
         const deletedUser = await models.user.destroy({
@@ -147,7 +147,7 @@ module.exports = {
         const patchData = {
             email: email ? email : req.userInfo.email,
             password: password ? password : req.userInfo.password,
-            user_id: user_id ? user_id : req.userInfo.nickname
+            nickname: user_id ? user_id : req.userInfo.nickname
         }
 
 
