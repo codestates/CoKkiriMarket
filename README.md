@@ -28,3 +28,6 @@ git test
 |Front-end|Back-end|Front-end|Back-end|
 |<a href="https://github.com/candymask0712">KimJunYoung</a>|<a href="https://github.com/dahyeon11">ParkDaHyun</a>|<a href="https://github.com/candymask0712">ParkYeRin</a>|<a href="https://github.com/candymask0712">JangHoJin</a>|
 >>>>>>> 0e3146532983fd99a5a8b5097bcf00220e08d7b9
+## ✨ FlowChart
+
+![플로우차트](https://github.com/codestates/CoKkiriMarket/blob/c5b5f84b9072ba7a798b5278dd9a6db08d16f110/readme/Untitled%20Diagram.drawio%20(1).png)
