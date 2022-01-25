@@ -71,7 +71,7 @@ module.exports = {
             if(iscreated){
                 res.status(201).json({ message: 'successful' })
             } else {
-                res.status(400).json( { message: '닉네임이 중복되었습니다.' })
+                res.status(200).json( { message: 'email이 중복되었습니다.' })
             }
             
 
@@ -110,7 +110,10 @@ module.exports = {
     delete: async (req, res) => {
         const userInfoFromAccessToken = req.userInfo
         const userInfoFromRefreshToken = await checkRefeshToken(req)
-        console.log('회원 탈퇴 요청, 각 토큰에서 해석한 유저 email은 각각 다음과 같습니다.', req.userInfo.id, userInfoFromRefreshToken.id)
+        if(userInfoFromRefreshToken){
+            return res.status(500).json({ message: '리프레시 토큰 없음' })
+        }
+        //console.log('회원 탈퇴 요청, 각 토큰에서 해석한 유저 email은 각각 다음과 같습니다.', req.userInfo.id, userInfoFromRefreshToken.id)
         console.log('쿠키는', req.cookies)
         const keysArr = Object.keys(userInfoFromRefreshToken)
         
@@ -126,7 +129,7 @@ module.exports = {
 
         keysArr.forEach((elements) => {
             if(userInfoFromAccessToken[elements] !== userInfoFromRefreshToken[elements]) {
-                return res.status(401).json({ message: '인증 정보가 만료되었습니다.' })
+                //return res.status(401).json({ message: '인증 정보가 만료되었습니다.' })
             }
         })
         const deletedUser = await models.user.destroy({
@@ -147,7 +150,7 @@ module.exports = {
         const patchData = {
             email: email ? email : req.userInfo.email,
             password: password ? password : req.userInfo.password,
-            user_id: user_id ? user_id : req.userInfo.nickname
+            nickname: user_id ? user_id : req.userInfo.nickname
         }
 
 
