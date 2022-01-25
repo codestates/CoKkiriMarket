@@ -30,4 +30,4 @@ git test
 >>>>>>> 0e3146532983fd99a5a8b5097bcf00220e08d7b9
 ## ✨ FlowChart
 
-![플로우차트](https://github.com/codestates/CoKkiriMarket/blob/c5b5f84b9072ba7a798b5278dd9a6db08d16f110/readme/Untitled%20Diagram.drawio%20(1).png)
+![플로우차트](https://github.com/codestates/CoKkiriMarket/blob/c5b5f84b9072ba7a798b5278dd9a6db08d16f110/readme/Untitled%20Diagram.drawio%20(2).png)
