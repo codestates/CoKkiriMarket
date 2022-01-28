@@ -1,7 +1,6 @@
 # CoKkiriMarket
 ## ✨ Project
-![배포 링크](https://cokkirimarket.xyz)
-<<<<<<< HEAD
+![배포 링크 : https://cokkirimarket.xyz](https://cokkirimarket.xyz)
 Hello World!
 git test
 =======
