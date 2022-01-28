@@ -9,9 +9,15 @@ const {
 
 module.exports = {
     logout: (req, res) => {
-        res.clearCookie('refreshToken')
+        if(checkRefeshToken(req)){
+            res.clearCookie('refreshToken')
+            res.status(200).json({message: '로그아웃 요청이 성공적으로 완료되었습니다.'})
+        } else {
+            res.status(500).json({message: '기타 오류'})
+        }
+        
         //db에서 말소시키는 과정이 들어가야 하는 자리
-        res.status(200).send('로그아웃 요청이 성공적으로 완료되었습니다.')
+        
     },
     
     login: async (req, res) => {
@@ -21,7 +27,8 @@ module.exports = {
                 where: {
                     email: email,
                     password: password,
-                }
+                },
+                attributes: ['id', 'nickname', 'email', 'role']
             })
 
             if(user) {
@@ -30,10 +37,18 @@ module.exports = {
                 
                 const accessToken = generateAccessToken(user.dataValues)
                 const refreshToken = generateRefreshToken(user.dataValues)
+
+                //리프레시 토큰 DB기록
+                const StoredRefreshToken = await models.refreshtoken.create({
+                    refreshtoken: refreshToken,
+                    user_id: user.id
+                })
+
                 sendRefreshToken(res, refreshToken)
                 res.json({ 
                     accessToken: accessToken,
-                    message: "로그인 성공"
+                    message: "로그인 성공",
+                    userInfo: user.dataValues 
                 });
             } else {
                 //올바르지 않은 유저 정보
@@ -107,12 +122,47 @@ module.exports = {
         }
     },
 
+    authorization: async (req, res) => {
+        const userInfoFromRefreshToken = await checkRefeshToken(req)
+
+        if(!userInfoFromRefreshToken){
+            return res.status(500).json({ message: '리프레시 토큰 없음' })
+        } else {
+            const user = await models.user.findOne({
+                where: {
+                    email: email,
+                    password: password,
+                },
+                attributes: ['id', 'nickname', 'email', 'role']
+            })
+
+            if(user) {
+                //로그인성공
+                delete user.dataValues.password
+                
+                const accessToken = generateAccessToken(user.dataValues)
+                const refreshToken = generateRefreshToken(user.dataValues)
+                sendRefreshToken(res, refreshToken)
+
+                res.json({ 
+                    accessToken: accessToken,
+                    message: "로그인 성공",
+                    userInfo: user.dataValues 
+                });
+            }
+
+        }
+
+    },
+
     delete: async (req, res) => {
         const userInfoFromAccessToken = req.userInfo
         const userInfoFromRefreshToken = await checkRefeshToken(req)
-        if(userInfoFromRefreshToken){
+        if(!userInfoFromRefreshToken){
             return res.status(500).json({ message: '리프레시 토큰 없음' })
         }
+
+
         //console.log('회원 탈퇴 요청, 각 토큰에서 해석한 유저 email은 각각 다음과 같습니다.', req.userInfo.id, userInfoFromRefreshToken.id)
         console.log('쿠키는', req.cookies)
         const keysArr = Object.keys(userInfoFromRefreshToken)
@@ -129,7 +179,7 @@ module.exports = {
 
         keysArr.forEach((elements) => {
             if(userInfoFromAccessToken[elements] !== userInfoFromRefreshToken[elements]) {
-                //return res.status(401).json({ message: '인증 정보가 만료되었습니다.' })
+                return res.status(401).json({ message: '인증 정보가 만료되었습니다.' })
             }
         })
         const deletedUser = await models.user.destroy({

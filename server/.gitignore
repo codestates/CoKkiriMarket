@@ -9,11 +9,16 @@
 /coverage
 
 #cert
+cert.pem
+key.pem
 cokkirimarket.crt.pem
 cokkirimarket.key.pem
 
 # production
 /build
+
+#log
+/logs/access.log
 
 # misc
 .DS_Store
