@@ -1,8 +1,6 @@
 # CoKkiriMarket
 ## ✨ Project
 ![배포 링크 : https://cokkirimarket.xyz](https://cokkirimarket.xyz)
-Hello World!
-git test
 =======
 ![텍스트](https://imagedelivery.net/BOKuAiJyROlMLXwCcBYMqQ/f5ab4698-2d26-40ed-17d8-b2e00f57dc00/public)
 ## ✨ Project
