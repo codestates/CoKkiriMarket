@@ -1,7 +1,7 @@
 # CoKkiriMarket
 ## ✨ Project
 
-<a href="https://cokkirimarket.xyz"> 코끼리 마켓 보러가기 >>>> : https://cokkirimarket.xyz</a>
+<a href="https://cokkirimarket.xyz"> 코끼리 마켓 보러가기 >>>> https://cokkirimarket.xyz</a>
 ![텍스트](https://imagedelivery.net/BOKuAiJyROlMLXwCcBYMqQ/f5ab4698-2d26-40ed-17d8-b2e00f57dc00/public)
 ## ✨ Project
 집에서 안쓰는 물건 있으신가요?  
