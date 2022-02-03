@@ -1,7 +1,7 @@
 # CoKkiriMarket
 ## ✨ Project
-=======
-<a href="https://cokkirimarket.xyz"> 코끼리 마켓 배포 링크 : https://cokkirimarket.xyz</a>
+
+<a href="https://cokkirimarket.xyz"> 코끼리 마켓 보러가기 >>>> : https://cokkirimarket.xyz</a>
 ![텍스트](https://imagedelivery.net/BOKuAiJyROlMLXwCcBYMqQ/f5ab4698-2d26-40ed-17d8-b2e00f57dc00/public)
 ## ✨ Project
 집에서 안쓰는 물건 있으신가요?  
@@ -19,6 +19,6 @@
 ---|---|---|---
 |Front-end|Back-end|Front-end|Back-end|
 |<a href="https://github.com/candymask0712">KimJunYoung</a>|<a href="https://github.com/dahyeon11">ParkDaHyun</a>|<a href="https://github.com/candymask0712">ParkYeRin</a>|<a href="https://github.com/candymask0712">JangHoJin</a>|
->>>>>>> 0e3146532983fd99a5a8b5097bcf00220e08d7b9
+
 ## ✨ FlowChart
 ![플로우차트](https://github.com/codestates/CoKkiriMarket/blob/9b9247baf4845fabedeb596c2e4508e32b6a8f43/readme/Untitled%20Diagram.drawio%20(2).png)
