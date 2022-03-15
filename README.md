@@ -20,5 +20,8 @@
 |Front-end|Back-end|Front-end|Back-end|
 |<a href="https://github.com/candymask0712">KimJunYoung</a>|<a href="https://github.com/dahyeon11">ParkDaHyun</a>|<a href="https://github.com/candymask0712">ParkYeRin</a>|<a href="https://github.com/candymask0712">JangHoJin</a>|
 
+## ✨ Wiki
+![자세한 내용이  wiki 보러가기](https://github.com/codestates/CoKkiriMarket/wiki)
+
 ## ✨ FlowChart
 ![플로우차트](https://github.com/codestates/CoKkiriMarket/blob/9b9247baf4845fabedeb596c2e4508e32b6a8f43/readme/Untitled%20Diagram.drawio%20(2).png)
